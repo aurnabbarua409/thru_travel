@@ -1,6 +1,9 @@
+import 'dart:js_interop';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:new_untitled/features/profile/data/profile_model.dart';
 import 'package:new_untitled/services/storage/storage_services.dart';
 import 'package:new_untitled/utils/helpers/other_helper.dart';
 
@@ -16,6 +19,8 @@ class ProfileController extends GetxController {
   List languages = ["English", "French", "Arabic"];
 
   final List<String> options = ['Profile Picture', 'Location', 'Bio'];
+
+  final user = Rxn<ProfileModel>();
 
   /// form key here
   final formKey = GlobalKey<FormState>();
@@ -37,10 +42,28 @@ class ProfileController extends GetxController {
     text: kDebugMode ? "Seattle WA" : "",
   );
 
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    fetchProfile();
+  }
+
   /// select image function here
   getProfileImage() async {
     image = await OtherHelper.openGalleryForProfile();
     update();
+  }
+
+  void fetchProfile() async {
+    final response = await ApiService.get(ApiEndPoint.user);
+    if (response.isSuccess) {
+      final data = response.data;
+      user.value = ProfileModel.fromJson(data['data']);
+      update();
+    } else {
+      Get.snackbar("Error", response.message);
+    }
   }
 
   /// select language  function here

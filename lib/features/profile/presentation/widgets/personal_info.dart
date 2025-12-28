@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:new_untitled/features/profile/presentation/controller/profile_controller.dart';
 
 import '../../../../component/image/common_image.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_images.dart';
 
-Widget personalInfo() {
+Widget personalInfo(ProfileController controller) {
   return Column(
     children: [
       /// User Profile Image here

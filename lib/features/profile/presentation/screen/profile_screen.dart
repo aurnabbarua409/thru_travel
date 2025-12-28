@@ -22,7 +22,7 @@ class ProfileScreen extends StatelessWidget {
           return SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [personalInfo(), 30.height, plans()],
+              children: [personalInfo(controller), 30.height, plans()],
             ),
           );
         },

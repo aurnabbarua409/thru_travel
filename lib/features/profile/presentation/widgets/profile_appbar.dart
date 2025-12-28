@@ -13,8 +13,8 @@ AppBar profileAppbar(BuildContext context, ProfileController controller) {
   return AppBar(
     centerTitle: false,
     automaticallyImplyLeading: false,
-    title: const CommonText(
-      text: "Enos Lewis",
+    title: CommonText(
+      text: controller.user.value?.name ?? "N/A",
       fontSize: 14,
       fontWeight: FontWeight.w500,
       color: Colors.black,
