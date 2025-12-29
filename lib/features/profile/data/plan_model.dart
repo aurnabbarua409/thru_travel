@@ -10,7 +10,6 @@ class PlanModel {
   final DateTime endDate;
   final String address;
   final String link;
-  final List<dynamic> activities;
   final List<dynamic> friends;
   final int commentCount;
   final DateTime createdAt;
@@ -26,7 +25,6 @@ class PlanModel {
     required this.date,
     required this.address,
     required this.link,
-    required this.activities,
     required this.friends,
     required this.commentCount,
     required this.createdAt,
@@ -53,7 +51,6 @@ class PlanModel {
           DateTime.fromMillisecondsSinceEpoch(0),
       address: json['address'] ?? '',
       link: json['link'] ?? '',
-      activities: json['activities'] ?? [],
       friends: json['friends'] ?? [],
       commentCount: json['commentCount'] ?? 0,
       createdAt:
@@ -76,7 +73,6 @@ class PlanModel {
       'date': date.toIso8601String(),
       'address': address,
       'link': link,
-      'activities': activities,
       'friends': friends,
       'commentCount': commentCount,
       'createdAt': createdAt.toIso8601String(),

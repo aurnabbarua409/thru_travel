@@ -22,6 +22,7 @@ class ApiEndPoint {
   static const plan = "/plan";
   static const event = "/events/db";
   static const friend = "/friend";
+  static const request = "/request";
   static const newPlanActivity = "/activity/create-with-activity";
   static const addNewPlan = "/activity/add-to-plan";
 }

@@ -12,7 +12,7 @@ import 'package:new_untitled/utils/extensions/extension.dart';
 
 import '../../../../config/route/app_routes.dart';
 
-Widget friendItem({required FriendModel friend, String value = ""}) {
+Widget friendItem({required FriendModel friend}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 12),
     child: Row(
@@ -20,7 +20,7 @@ Widget friendItem({required FriendModel friend, String value = ""}) {
         CommonImage(imageSrc: friend.image, borderRadius: 50, size: 48),
         CommonText(text: friend.name, left: 16),
         Spacer(),
-        if (value.toLowerCase() == "add")
+        if (friend.status == "pending")
           CommonButton(
             titleText: "Add to Plans",
             buttonHeight: 32,
@@ -37,7 +37,7 @@ Widget friendItem({required FriendModel friend, String value = ""}) {
                 ),
           ),
 
-        if (value.toLowerCase() == "remove")
+        if (friend.status == "remove")
           InkWell(
             onTap: () => Get.toNamed(AppRoutes.friend),
             child: Container(

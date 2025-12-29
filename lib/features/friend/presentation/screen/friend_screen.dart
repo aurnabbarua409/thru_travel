@@ -35,14 +35,16 @@ class FriendScreen extends StatelessWidget {
       ),
       body: GetBuilder<FriendController>(
         builder: (controller) {
-          return ListView.builder(
-            itemCount: 4,
-            padding: EdgeInsets.all(16.sp),
-            physics: BouncingScrollPhysics(),
-            itemBuilder: (context, index) {
-              return friendItem(friend: controller.friends[index]);
-            },
-          );
+          return controller.friends.isEmpty
+              ? Center(child: CommonText(text: "You don't have any friend"))
+              : ListView.builder(
+                itemCount: controller.friends.length,
+                padding: EdgeInsets.all(16.sp),
+                physics: BouncingScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return friendItem(friend: controller.friends[index]);
+                },
+              );
         },
       ),
 

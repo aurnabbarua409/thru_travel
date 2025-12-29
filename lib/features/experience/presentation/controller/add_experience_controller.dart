@@ -39,8 +39,9 @@ class AddExperienceController extends GetxController {
       "title": titleController.text.trim(),
       "externalId": "",
       "address": locationController.text.trim(),
-      "date": dateController.text.trim(),
+      "date": DateTime.parse(dateController.text.trim()).toIso8601String(),
       "images": [image],
+      "link": linkController.text.trim(),
     };
     try {
       final response = await ApiService.post(
@@ -48,7 +49,7 @@ class AddExperienceController extends GetxController {
         body: body,
       );
       if (response.isSuccess) {
-        Utils.successSnackBar("Success", response.message);
+        // Utils.successSnackBar("Success", response.message);
         Get.back();
       }
     } catch (e) {

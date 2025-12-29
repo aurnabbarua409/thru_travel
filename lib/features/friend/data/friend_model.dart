@@ -2,7 +2,11 @@
 class FriendModel {
   final String image;
   final String name;
-  FriendModel({required this.image, required this.name});
-  factory FriendModel.fromJson(Map<String, dynamic> json) =>
-      FriendModel(image: json['image'] ?? "", name: json['name'] ?? "");
+  final String status;
+  FriendModel({required this.image, required this.name, required this.status});
+  factory FriendModel.fromJson(Map<String, dynamic> json) => FriendModel(
+    image: json['requestedBy']['profile'] ?? "",
+    name: json['requestedBy']['name'] ?? "",
+    status: json['status'] ?? "",
+  );
 }
