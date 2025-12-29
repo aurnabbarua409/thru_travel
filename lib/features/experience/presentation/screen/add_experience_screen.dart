@@ -13,61 +13,66 @@ import '../widgets/experience_appbar.dart';
 import '../widgets/image.dart';
 
 class AddExperienceScreen extends StatelessWidget {
-  AddExperienceScreen({super.key});
+  const AddExperienceScreen({super.key});
 
-  final String value = Get.parameters["value"] ?? "";
+  // final String value = Get.parameters["value"] ?? "";
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: experienceAppBar(),
-      body: GetBuilder<AddExperienceController>(
-        builder: (controller) {
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  height: 42.h,
-                  width: Get.width,
-                  decoration: BoxDecoration(color: Color(0xffCFE9C3)),
-                  child:
-                      CommonText(
-                        text: "Trip Name:  “Gold Bar Friends Trip”",
-                        color: AppColors.black,
-                      ).center,
-                ),
-                Container(
-                  height: 42.h,
-                  width: Get.width,
-                  decoration: BoxDecoration(
-                    color: Color(0xffF4F2EC),
-                    border: Border.all(color: Color(0xffE6E6E6), width: 0.5),
+    return GetBuilder<AddExperienceController>(
+      builder:
+          (controller) => Scaffold(
+            appBar: experienceAppBar(),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    height: 42.h,
+                    width: Get.width,
+                    decoration: BoxDecoration(color: Color(0xffCFE9C3)),
+                    child:
+                        CommonText(
+                          text: "Trip Name:  “${controller.tripName}",
+                          color: AppColors.black,
+                        ).center,
                   ),
-                  child:
-                      CommonText(
-                        text: value,
-                        color: AppColors.black,
-                        left: 20,
-                      ).start,
-                ),
-                24.height,
-                experienceImage(controller),
+                  Container(
+                    height: 42.h,
+                    width: Get.width,
+                    decoration: BoxDecoration(
+                      color: Color(0xffF4F2EC),
+                      border: Border.all(color: Color(0xffE6E6E6), width: 0.5),
+                    ),
+                    child:
+                        CommonText(
+                          text: controller.category,
+                          color: AppColors.black,
+                          left: 20,
+                        ).start,
+                  ),
+                  24.height,
+                  experienceImage(controller),
 
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.sp),
-                  child: ExperienceAllField(controller: controller),
-                ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.sp),
+                    child: ExperienceAllField(controller: controller),
+                  ),
 
-                30.height,
-              ],
+                  30.height,
+                ],
+              ),
             ),
-          );
-        },
-      ),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w).copyWith(bottom: 28.h),
-        child: CommonButton(titleText: AppString.appName, onTap: Get.back),
-      ),
+
+            bottomNavigationBar: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 16.w,
+              ).copyWith(bottom: 28.h),
+              child: CommonButton(
+                titleText: AppString.thru,
+                onTap: controller.addExperience,
+              ),
+            ),
+          ),
     );
   }
 }

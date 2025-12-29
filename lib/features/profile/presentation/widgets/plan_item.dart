@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_untitled/component/image/common_image.dart';
 import 'package:new_untitled/features/profile/data/plan_model.dart';
 import 'package:new_untitled/utils/constants/app_colors.dart';
-import 'package:new_untitled/utils/constants/app_images.dart';
 import 'package:new_untitled/utils/extensions/extension.dart';
 
 import '../../../../component/text/common_text.dart';
@@ -14,7 +13,12 @@ Widget planItem(PlanModel plan) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CommonImage(imageSrc: AppImages.image2, size: 148, fill: BoxFit.fill),
+        CommonImage(
+          imageSrc: plan.images.first,
+          size: 148,
+          fill: BoxFit.fill,
+          borderRadius: 10,
+        ),
         CommonText(
           text: plan.title,
           color: AppColors.black.withOpacity(0.5),
@@ -23,7 +27,8 @@ Widget planItem(PlanModel plan) {
           fontWeight: FontWeight.w400,
         ),
         CommonText(
-          text: "${plan.date.MonthName} ${plan.date.day} - ${plan.}",
+          text:
+              "${plan.date.MonthNameShort} ${plan.date.day} - ${plan.endDate.MonthNameShort} ${plan.endDate.day}",
           color: AppColors.black,
           fontSize: 14,
           fontWeight: FontWeight.w400,

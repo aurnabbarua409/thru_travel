@@ -10,6 +10,7 @@ class ProfileModel {
   String bio;
   String address;
   String totalDays;
+  String profile;
   LocationModel location;
   final DateTime createdAt;
 
@@ -24,6 +25,7 @@ class ProfileModel {
     required this.bio,
     required this.address,
     required this.totalDays,
+    required this.profile,
     required this.location,
     required this.createdAt,
   });
@@ -44,6 +46,7 @@ class ProfileModel {
           json['location'] != null
               ? LocationModel.fromJson(json['location'] ?? {})
               : LocationModel.empty(),
+      profile: json['profile'] ?? "",
       createdAt: DateTime.parse(json['createdAt']),
     );
   }

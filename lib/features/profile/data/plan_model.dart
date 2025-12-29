@@ -3,11 +3,11 @@ import 'package:new_untitled/features/profile/data/profile_model.dart';
 class PlanModel {
   final String id;
   final LocationModel location;
-  final String createdBy;
   final String title;
   final String description;
   final List<String> images;
   final DateTime date;
+  final DateTime endDate;
   final String address;
   final String link;
   final List<dynamic> activities;
@@ -20,7 +20,6 @@ class PlanModel {
   PlanModel({
     required this.id,
     required this.location,
-    required this.createdBy,
     required this.title,
     required this.description,
     required this.images,
@@ -33,6 +32,7 @@ class PlanModel {
     required this.createdAt,
     required this.updatedAt,
     required this.v,
+    required this.endDate,
   });
 
   factory PlanModel.fromJson(Map<String, dynamic> json) {
@@ -42,12 +42,14 @@ class PlanModel {
           json['location'] != null
               ? LocationModel.fromJson(json['location'])
               : LocationModel.empty(),
-      createdBy: json['createdBy'] ?? '',
       title: json['title'] ?? '',
       description: json['description'] ?? '',
       images: List<String>.from(json['images'] ?? []),
       date:
           DateTime.tryParse(json['date'] ?? '') ??
+          DateTime.fromMillisecondsSinceEpoch(0),
+      endDate:
+          DateTime.tryParse(json['endDate'] ?? '') ??
           DateTime.fromMillisecondsSinceEpoch(0),
       address: json['address'] ?? '',
       link: json['link'] ?? '',
@@ -68,7 +70,6 @@ class PlanModel {
     return {
       '_id': id,
       'location': location.toJson(),
-      'createdBy': createdBy,
       'title': title,
       'description': description,
       'images': images,

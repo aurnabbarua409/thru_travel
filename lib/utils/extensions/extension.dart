@@ -24,10 +24,15 @@ extension TimeFormater on DateTime {
   String get time => DateFormat('h:mm a').format(this);
 
   String get date => DateFormat('dd-MM-yyyy').format(this);
+  String get date2 => DateFormat('dd/MM/yyyy').format(this);
+  String get date3 => DateFormat('MMMM dd, yyyy').format(this);
+  String get monthDay => DateFormat('MMMM dd').format(this);
 
   String get dayName => DateFormat('E').format(this);
 
   String get MonthName => DateFormat.MMMM().format(this);
+
+  String get MonthNameShort => DateFormat.MMM().format(this);
 
   String get checkTime {
     DateTime currentDateTime = DateTime.now();

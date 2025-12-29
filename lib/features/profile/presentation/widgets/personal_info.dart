@@ -9,7 +9,12 @@ Widget personalInfo(ProfileController controller) {
   return Column(
     children: [
       /// User Profile Image here
-      CommonImage(imageSrc: AppImages.image1),
+      CommonImage(
+        imageSrc: controller.user.value?.profile ?? AppImages.image1,
+        height: 200,
+
+        fill: BoxFit.cover,
+      ),
 
       /// User Name here
       Padding(

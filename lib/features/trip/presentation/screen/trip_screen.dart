@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:new_untitled/component/text/common_text.dart';
 import 'package:new_untitled/utils/constants/app_colors.dart';
 
 import '../../../../component/bottom_nav_bar/common_bottom_bar.dart';
@@ -23,37 +24,42 @@ class TripScreen extends StatelessWidget {
           return Stack(
             children: [
               maps(controller),
-              !controller.isDetails
-                  ? Positioned(
-                    top: 280,
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      height: Get.height,
-                      width: Get.width,
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(24.r),
-                          topRight: Radius.circular(24.r),
-                        ),
-                      ),
-                      child: ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        itemCount: 10,
-                        itemBuilder: (context, index) {
-                          return tripItem();
-                        },
-                      ),
+              Positioned(
+                top: 280,
+                left: 0,
+                right: 0,
+                child: Container(
+                  height: Get.height,
+                  width: Get.width,
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(24.r),
+                      topRight: Radius.circular(24.r),
                     ),
-                  )
-                  : Positioned(
-                    top: 200,
-                    left: 0,
-                    right: 0,
-                    child: tripDetails(context),
                   ),
+                  child:
+                      controller.events.isEmpty
+                          ? CommonText(text: "No event found")
+                          : ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: controller.events.length,
+                            itemBuilder: (context, index) {
+                              return tripItem(
+                                context,
+                                controller.events[index],
+                              );
+                            },
+                          ),
+                ),
+              ),
+              // : Positioned(
+              //   top: 200,
+              //   left: 0,
+              //   right: 0,
+              //   child: tripDetails(context),
+              // ),
             ],
           );
         },

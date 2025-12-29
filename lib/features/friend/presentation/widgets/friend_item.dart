@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:new_untitled/component/button/common_button.dart';
 import 'package:new_untitled/component/image/common_image.dart';
 import 'package:new_untitled/component/text/common_text.dart';
+import 'package:new_untitled/features/friend/data/friend_model.dart';
 import 'package:new_untitled/utils/constants/app_colors.dart';
 import 'package:new_untitled/utils/constants/app_icons.dart';
 import 'package:new_untitled/utils/constants/app_images.dart';
@@ -11,13 +12,13 @@ import 'package:new_untitled/utils/extensions/extension.dart';
 
 import '../../../../config/route/app_routes.dart';
 
-Widget friendItem({String value = ""}) {
+Widget friendItem({required FriendModel friend, String value = ""}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 12),
     child: Row(
       children: [
-        CommonImage(imageSrc: AppImages.image4, borderRadius: 50, size: 48),
-        CommonText(text: "starryskies23", left: 16),
+        CommonImage(imageSrc: friend.image, borderRadius: 50, size: 48),
+        CommonText(text: friend.name, left: 16),
         Spacer(),
         if (value.toLowerCase() == "add")
           CommonButton(

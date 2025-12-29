@@ -13,6 +13,7 @@ class TravelLogController extends GetxController {
     {"title": "Payment", "year": 2024},
   ];
   final travelLogs = <TravelLogModel>[].obs;
+  final isLoading = false.obs;
 
   @override
   void onInit() {
@@ -22,6 +23,8 @@ class TravelLogController extends GetxController {
   }
 
   void fetchTravelLog() async {
+    isLoading.value = true;
+    update();
     try {
       final response = await ApiService.get(ApiEndPoint.travelLog);
       if (response.isSuccess) {
@@ -34,6 +37,9 @@ class TravelLogController extends GetxController {
       }
     } catch (e) {
       errorLog("error in fetching travel log: $e");
+    } finally {
+      isLoading.value = false;
+      update();
     }
   }
 

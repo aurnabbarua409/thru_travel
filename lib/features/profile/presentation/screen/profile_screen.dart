@@ -12,24 +12,27 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      /// App Bar Section Starts here
-      appBar: profileAppbar(context, Get.find<ProfileController>()),
+    return GetBuilder<ProfileController>(
+      builder:
+          (controller) => Scaffold(
+            /// App Bar Section Starts here
+            appBar: profileAppbar(context, controller),
 
-      /// Body Section Starts here
-      body: GetBuilder<ProfileController>(
-        builder: (controller) {
-          return SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [personalInfo(controller), 30.height, plans()],
+            /// Body Section Starts here
+            body: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  personalInfo(controller),
+                  30.height,
+                  plans(controller.plans),
+                ],
+              ),
             ),
-          );
-        },
-      ),
 
-      /// Bottom Navigation Bar Section Starts here
-      bottomNavigationBar: const CommonBottomNavBar(currentIndex: 4),
+            /// Bottom Navigation Bar Section Starts here
+            bottomNavigationBar: const CommonBottomNavBar(currentIndex: 4),
+          ),
     );
   }
 }

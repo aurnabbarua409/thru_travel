@@ -40,7 +40,7 @@ class FriendScreen extends StatelessWidget {
             padding: EdgeInsets.all(16.sp),
             physics: BouncingScrollPhysics(),
             itemBuilder: (context, index) {
-              return friendItem(value: value);
+              return friendItem(friend: controller.friends[index]);
             },
           );
         },

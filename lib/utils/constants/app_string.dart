@@ -141,4 +141,5 @@ class AppString {
   static const String yourDailyPicks = "Your Daily Picks";
   static const String friends = "Friends";
   static const String friendsJoiningYou = "Friends Joining You";
+  static const String thru = "Thru!";
 }

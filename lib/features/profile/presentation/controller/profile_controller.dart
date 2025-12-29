@@ -44,6 +44,7 @@ class ProfileController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     fetchProfile();
+    fetchPlan();
   }
 
   /// select image function here

@@ -28,6 +28,9 @@ class TravelLogScreen extends StatelessWidget {
           if (controller.travelLogs.isEmpty) {
             return Center(child: Text("No travel log found"));
           }
+          if (controller.isLoading.value) {
+            return Center(child: CircularProgressIndicator());
+          }
           return ListView.builder(
             padding: EdgeInsets.all(16.sp),
             physics: const BouncingScrollPhysics(),

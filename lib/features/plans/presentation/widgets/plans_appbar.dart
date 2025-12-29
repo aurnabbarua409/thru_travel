@@ -24,7 +24,12 @@ AppBar plansAppBar(BuildContext context, PlansController controller) {
             top: 100,
             right: 30,
             list: controller.experience,
-            onTap: controller.onChangeExperience,
+            onTap:
+                (e) => controller.onChangeExperience(
+                  e,
+                  controller.plans.value!.id,
+                  controller.plans.value!.title,
+                ),
           );
         },
         child: CommonImage(imageSrc: AppIcons.add),

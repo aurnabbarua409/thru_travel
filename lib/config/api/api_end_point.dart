@@ -20,4 +20,8 @@ class ApiEndPoint {
   static const happeningNow = "/plan/happening-now";
   static const travelLog = "/user/activity-log";
   static const plan = "/plan";
+  static const event = "/events/db";
+  static const friend = "/friend";
+  static const newPlanActivity = "/activity/create-with-activity";
+  static const addNewPlan = "/activity/add-to-plan";
 }

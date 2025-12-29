@@ -38,20 +38,25 @@ Widget plans(List<PlanModel> plans) {
         ),
 
         12.height,
-        SizedBox(
-          height: 215.h,
-          child: ListView.builder(
-            padding: EdgeInsets.symmetric(horizontal: 12),
-            scrollDirection: Axis.horizontal,
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () => Get.toNamed(AppRoutes.plans),
-                child: planItem(),
-              );
-            },
-          ),
-        ),
+        plans.isEmpty
+            ? SizedBox(
+              height: 215.h,
+              child: Center(child: Text("No plan found")),
+            )
+            : SizedBox(
+              height: 215.h,
+              child: ListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 12),
+                scrollDirection: Axis.horizontal,
+                itemCount: plans.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () => Get.toNamed(AppRoutes.plans),
+                    child: planItem(plans[index]),
+                  );
+                },
+              ),
+            ),
       ],
     ),
   );

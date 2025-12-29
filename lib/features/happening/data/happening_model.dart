@@ -9,7 +9,7 @@ class HappeningModel {
   final DateTime endDate;
   final String address;
   final String link;
-  final List<dynamic> activities;
+  final List<ActivityModel> activities;
   final List<dynamic> friends;
   int commentCount;
   final DateTime createdAt;
@@ -57,7 +57,12 @@ class HappeningModel {
           DateTime.fromMillisecondsSinceEpoch(0),
       address: json['address'] ?? '',
       link: json['link'] ?? '',
-      activities: json['activities'] ?? [],
+      activities:
+          json['activities'] != null
+              ? (json['activities'] as List)
+                  .map((e) => ActivityModel.fromJson(e))
+                  .toList()
+              : [],
       friends: json['friends'] ?? [],
       commentCount: json['commentCount'] ?? 0,
       createdAt:
@@ -142,5 +147,69 @@ class CreatedByModel {
 
   Map<String, dynamic> toJson() {
     return {'_id': id, 'name': name, 'profile': profile};
+  }
+}
+
+class ActivityModel {
+  final String id;
+  final String title;
+  final String externalId;
+  final String description;
+  final String address;
+  final DateTime date;
+  final List<String> images;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final int v;
+
+  ActivityModel({
+    required this.id,
+    required this.title,
+    required this.externalId,
+    required this.description,
+    required this.address,
+    required this.date,
+    required this.images,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.v,
+  });
+
+  factory ActivityModel.fromJson(Map<String, dynamic> json) {
+    return ActivityModel(
+      id: json['_id'] ?? '',
+      title: json['title'] ?? '',
+      externalId: json['externalId'] ?? '',
+      description: json['description'] ?? '',
+      address: json['address'] ?? '',
+      date:
+          json['date'] != null ? DateTime.parse(json['date']) : DateTime.now(),
+      images:
+          (json['images'] as List?)?.map((e) => e.toString()).toList() ?? [],
+      createdAt:
+          json['createdAt'] != null
+              ? DateTime.parse(json['createdAt'])
+              : DateTime.now(),
+      updatedAt:
+          json['updatedAt'] != null
+              ? DateTime.parse(json['updatedAt'])
+              : DateTime.now(),
+      v: json['__v'] ?? 0,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      '_id': id,
+      'title': title,
+      'externalId': externalId,
+      'description': description,
+      'address': address,
+      'date': date.toIso8601String(),
+      'images': images,
+      'createdAt': createdAt.toIso8601String(),
+      'updatedAt': updatedAt.toIso8601String(),
+      '__v': v,
+    };
   }
 }

@@ -20,12 +20,12 @@ class ExperienceDetails extends StatelessWidget {
           return Stack(
             children: [
               maps(controller, isFilter: false),
-              Positioned(
-                top: 220.h,
-                left: 0,
-                right: 0,
-                child: tripDetails(context),
-              ),
+              // Positioned(
+              //   top: 220.h,
+              //   left: 0,
+              //   right: 0,
+              //   child: tripDetails(context),
+              // ),
             ],
           );
         },

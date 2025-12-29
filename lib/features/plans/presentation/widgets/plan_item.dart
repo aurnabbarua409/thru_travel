@@ -3,13 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:new_untitled/component/image/common_image.dart';
 import 'package:new_untitled/component/text/common_text.dart';
+import 'package:new_untitled/features/happening/data/happening_model.dart';
 import 'package:new_untitled/utils/constants/app_images.dart';
 import 'package:new_untitled/utils/extensions/extension.dart';
 
 import '../../../../utils/constants/app_colors.dart';
 
 class PlanItem extends StatefulWidget {
-  const PlanItem({super.key});
+  const PlanItem({super.key, required this.plan});
+  final ActivityModel plan;
 
   @override
   State<PlanItem> createState() => _PlanItemState();
@@ -37,7 +39,7 @@ class _PlanItemState extends State<PlanItem> {
               child: Row(
                 children: [
                   CommonImage(
-                    imageSrc: AppImages.image3,
+                    imageSrc: widget.plan.images.first,
                     height: 47,
                     width: 100,
                   ),
@@ -53,11 +55,11 @@ class _PlanItemState extends State<PlanItem> {
                           color: AppColors.black.withOpacity(0.5),
                         ),
                         CommonText(
-                          text: "Lake Serene Hike",
+                          text: widget.plan.title,
                           fontWeight: FontWeight.w400,
                         ),
                         CommonText(
-                          text: "September 24, 2025",
+                          text: widget.plan.date.date3,
                           fontSize: 10,
                           fontWeight: FontWeight.w400,
                         ),
@@ -87,12 +89,12 @@ class _PlanItemState extends State<PlanItem> {
                     }),
                   ),
                   CommonImage(
-                    imageSrc: AppImages.image3,
+                    imageSrc: widget.plan.images.first,
                     height: 150,
                     width: Get.width,
                   ),
                   CommonText(
-                    text: "Lake Serene Trail",
+                    text: widget.plan.title,
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: AppColors.black,
@@ -100,7 +102,7 @@ class _PlanItemState extends State<PlanItem> {
                   ),
 
                   CommonText(
-                    text: "Mount Index State Park Index, WA",
+                    text: widget.plan.address,
                     fontSize: 14,
                     bottom: 2,
                     fontWeight: FontWeight.w400,
@@ -108,23 +110,22 @@ class _PlanItemState extends State<PlanItem> {
                   ),
 
                   CommonText(
-                    text: "Moderate - 7.2 mi - Out & Back",
+                    text: widget.plan.date.toString(),
                     fontSize: 14,
                     bottom: 2,
                     fontWeight: FontWeight.w400,
                     color: AppColors.black.withOpacity(0.5),
                   ),
-                  CommonText(
-                    text: "Est. Time ~ 3 hr 45 min",
-                    fontSize: 14,
-                    bottom: 10,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.black.withOpacity(0.5),
-                  ),
 
+                  // CommonText(
+                  //   text: "Est. Time ~ 3 hr 45 min",
+                  //   fontSize: 14,
+                  //   bottom: 10,
+                  //   fontWeight: FontWeight.w400,
+                  //   color: AppColors.black.withOpacity(0.5),
+                  // ),
                   CommonText(
-                    text:
-                        "Tucked into the Cascade foothills, Lake Serene Trail is the definition of a payoff hike. The path winds through mossy forest, crosses a roaring waterfall halfway up, and ends at a mirror-blue alpine lake beneath steep granite cliffs. ",
+                    text: widget.plan.description,
                     fontSize: 14,
                     bottom: 10,
                     maxLines: 1,
