@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:new_untitled/component/text/common_text.dart';
+import 'package:new_untitled/features/travel_log/data/travel_log_model.dart';
 import 'package:new_untitled/utils/constants/app_colors.dart';
-import 'package:new_untitled/utils/constants/app_images.dart';
 import 'package:new_untitled/utils/extensions/extension.dart';
 import '../../../../component/image/common_image.dart';
 
-Widget logItem(var item) {
+Widget logItem(TravelLogModel item) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 3, vertical: 13),
     margin: EdgeInsets.only(bottom: 10),
@@ -15,19 +15,25 @@ Widget logItem(var item) {
     ),
     child: Row(
       children: [
-        CommonImage(imageSrc: AppImages.image6, borderRadius: 6),
+        CommonImage(
+          imageSrc: item.images.first,
+          borderRadius: 6,
+          height: 80,
+          width: 100,
+        ),
         6.width,
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CommonText(
-                text: "Girls Trip",
+                text: item.title,
                 color: AppColors.black,
                 fontWeight: FontWeight.w400,
               ),
               CommonText(
-                text: "Sept 23 -  September 26, 2025",
+                text:
+                    "${item.date.MonthName} ${item.date.day} - ${item.endDate.MonthName} ${item.endDate.day}, ${item.endDate.year}",
                 fontSize: 10,
                 fontWeight: FontWeight.w400,
               ),

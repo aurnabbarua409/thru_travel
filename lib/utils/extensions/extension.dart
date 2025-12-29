@@ -27,6 +27,8 @@ extension TimeFormater on DateTime {
 
   String get dayName => DateFormat('E').format(this);
 
+  String get MonthName => DateFormat.MMMM().format(this);
+
   String get checkTime {
     DateTime currentDateTime = DateTime.now();
 
@@ -47,7 +49,7 @@ extension TimeFormater on DateTime {
 }
 
 extension AsyncTryCatch on Function() {
-    tryCatch() async {
+  tryCatch() async {
     try {
       await this();
     } catch (e, stackTrace) {
@@ -55,4 +57,3 @@ extension AsyncTryCatch on Function() {
     }
   }
 }
-

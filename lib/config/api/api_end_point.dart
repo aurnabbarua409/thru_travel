@@ -16,4 +16,8 @@ class ApiEndPoint {
   static const termsOfServices = "terms-and-conditions";
   static const chats = "chats";
   static const messages = "messages";
+  static const comments = "/comments/";
+  static const happeningNow = "/plan/happening-now";
+  static const travelLog = "/user/activity-log";
+  static const plan = "/plan";
 }

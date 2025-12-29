@@ -1,11 +1,11 @@
-import 'dart:js_interop';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:new_untitled/features/profile/data/plan_model.dart';
 import 'package:new_untitled/features/profile/data/profile_model.dart';
 import 'package:new_untitled/services/storage/storage_services.dart';
 import 'package:new_untitled/utils/helpers/other_helper.dart';
+import 'package:new_untitled/utils/log/error_log.dart';
 
 import '../../../../config/api/api_end_point.dart';
 import '../../../../config/route/app_routes.dart';
@@ -21,6 +21,7 @@ class ProfileController extends GetxController {
   final List<String> options = ['Profile Picture', 'Location', 'Bio'];
 
   final user = Rxn<ProfileModel>();
+  final plans = <PlanModel>[].obs;
 
   /// form key here
   final formKey = GlobalKey<FormState>();
@@ -35,12 +36,8 @@ class ProfileController extends GetxController {
   bool isLoading = false;
 
   /// all controller here
-  TextEditingController bioController = TextEditingController(
-    text: kDebugMode ? "“Wandering through Washington”" : "",
-  );
-  TextEditingController locationController = TextEditingController(
-    text: kDebugMode ? "Seattle WA" : "",
-  );
+  TextEditingController bioController = TextEditingController();
+  TextEditingController locationController = TextEditingController();
 
   @override
   void onInit() {
@@ -85,6 +82,56 @@ class ProfileController extends GetxController {
     PopupController().hide();
   }
 
+  void editBio() async {
+    try {
+      final response = await ApiService.patch(
+        ApiEndPoint.user,
+        body: {'bio': bioController.text.trim()},
+      );
+      if (response.isSuccess) {
+        user.value!.bio = bioController.text.trim();
+        bioController.clear();
+        update();
+      } else {
+        Get.snackbar("Error", response.message);
+      }
+    } catch (e) {
+      errorLog("error in editing bio: $e");
+    }
+  }
+
+  void editLocation() async {
+    try {
+      final response = await ApiService.patch(
+        ApiEndPoint.user,
+        body: {'address': locationController.text.trim()},
+      );
+      if (response.isSuccess) {
+        user.value!.address = locationController.text.trim();
+        locationController.clear();
+        update();
+      } else {
+        Get.snackbar("Error", response.message);
+      }
+    } catch (e) {
+      errorLog("error in editing location: $e");
+    }
+  }
+
+  void fetchPlan() async {
+    try {
+      final response = await ApiService.get(ApiEndPoint.plan);
+      if (response.isSuccess) {
+        final data = response.data;
+        plans.value =
+            (data['data'] as List).map((e) => PlanModel.fromJson(e)).toList();
+        update();
+      }
+    } catch (e) {
+      errorLog("error in fetching plan: $e");
+    }
+  }
+
   /// update profile function here
   Future<void> editProfileRepo() async {
     if (!formKey.currentState!.validate()) return;
@@ -94,8 +141,13 @@ class ProfileController extends GetxController {
     update();
 
     Map<String, String> body = {
-      // "fullName": nameController.text,
-      // "phone": numberController.text,
+      // "name": "",
+      // "lastName": "Doe",
+      // "phone": "123456789",
+      // "address": "123 Main St",
+      // "bio": "Hello world",
+      // "longitude": '22.43',
+      // "latitude": '24.50',
     };
 
     var response = await ApiService.multipart(

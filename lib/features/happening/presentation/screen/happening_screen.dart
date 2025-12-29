@@ -41,12 +41,19 @@ class HappeningScreen extends StatelessWidget {
           ),
           body: GetBuilder<HappeningController>(
             builder: (controller) {
+              if (controller.happening.isEmpty) {
+                return Center(child: Text("Nothing is happening now"));
+              }
               return ListView.builder(
                 padding: EdgeInsets.all(16.sp),
                 physics: const BouncingScrollPhysics(),
-                itemCount: 10,
+                itemCount: controller.happening.length,
                 itemBuilder: (context, index) {
-                  return PostItem();
+                  return PostItem(
+                    happening: controller.happening[index],
+                    onSendComment:
+                        (id, content) => controller.sendComment(id, content),
+                  );
                 },
               );
             },

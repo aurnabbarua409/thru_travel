@@ -17,16 +17,19 @@ Widget personalInfo(ProfileController controller) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const CommonText(
-              text: "Seattle WA",
+            CommonText(
+              text: controller.user.value!.address,
               fontSize: 11,
               fontWeight: FontWeight.w500,
               top: 23,
               left: 6,
             ),
             Divider(),
-            const CommonText(
-              text: "“Wandering through Washington”",
+            CommonText(
+              text:
+                  controller.user.value?.bio != null
+                      ? "“${controller.user.value!.bio}”"
+                      : "",
               fontSize: 11,
               fontWeight: FontWeight.w400,
               left: 6,
@@ -36,8 +39,8 @@ Widget personalInfo(ProfileController controller) {
             ),
             Divider(),
 
-            const CommonText(
-              text: "Total Days Traveled: 1 year 2 months",
+            CommonText(
+              text: "Total Days Traveled: ${controller.user.value!.totalDays}",
               fontSize: 11,
               fontWeight: FontWeight.w500,
               top: 7,

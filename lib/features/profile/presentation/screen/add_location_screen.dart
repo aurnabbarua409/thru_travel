@@ -43,7 +43,7 @@ class AddLocationScreen extends StatelessWidget {
                         children: [
                           CommonText(
                             top: 12,
-                            text: controller.locationController.text,
+                            text: controller.user.value!.address,
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                           ),
@@ -62,7 +62,9 @@ class AddLocationScreen extends StatelessWidget {
 
                         suffixIcon: InkWell(
                           child: Icon(Icons.clear, size: 20),
-                          onTap: () {},
+                          onTap: () {
+                            controller.editLocation();
+                          },
                         ),
                       ),
                     ],

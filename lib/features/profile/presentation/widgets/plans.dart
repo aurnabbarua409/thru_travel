@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:new_untitled/component/text/common_text.dart';
+import 'package:new_untitled/features/profile/data/plan_model.dart';
 import 'package:new_untitled/features/profile/presentation/widgets/plan_item.dart';
 import 'package:new_untitled/utils/constants/app_string.dart';
 import 'package:new_untitled/utils/extensions/extension.dart';
 
 import '../../../../config/route/app_routes.dart';
 
-Widget plans() {
+Widget plans(List<PlanModel> plans) {
   return Container(
     decoration: BoxDecoration(color: Color(0xffCFE9C3)),
     child: Column(
