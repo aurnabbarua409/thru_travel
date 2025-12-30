@@ -93,6 +93,7 @@ class _PlanItemState extends State<PlanItem> {
                     imageSrc: widget.plan.images.first,
                     height: 150,
                     width: Get.width,
+                    fill: BoxFit.cover,
                   ),
                   CommonText(
                     text: widget.plan.title,

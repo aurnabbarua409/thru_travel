@@ -47,6 +47,8 @@ class FriendController extends GetxController {
         friends[index].isInPlan = true;
         update();
         Utils.snackBar(response.message);
+      } else {
+        Utils.snackBar(response.message);
       }
     } catch (e) {
       errorLog("error in requesting plan: $e");
