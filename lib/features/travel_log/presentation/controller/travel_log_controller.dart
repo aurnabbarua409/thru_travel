@@ -32,11 +32,7 @@ class TravelLogController extends GetxController {
         final temp = data['data'] as List;
         if (temp.isNotEmpty) {
           travelLogs.value =
-              temp
-                  .where((e) => e != null)
-                  .map((e) => TravelLogModel.fromJson(e))
-                  .where((e) => e.images.isNotEmpty)
-                  .toList();
+              temp.map((e) => TravelLogModel.fromJson(e)).toList();
           update();
         }
       }

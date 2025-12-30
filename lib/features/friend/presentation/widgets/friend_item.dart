@@ -21,7 +21,7 @@ Widget friendItem(FriendController controller, int index) {
         CommonImage(imageSrc: friend.image, borderRadius: 50, size: 48),
         CommonText(text: friend.name, left: 16),
         Spacer(),
-        if (!friend.isPlanAdd)
+        if (!friend.isInPlan)
           CommonButton(
             titleText: "Add to Plans",
             buttonHeight: 32,
@@ -34,7 +34,7 @@ Widget friendItem(FriendController controller, int index) {
             onTap: () => controller.addToPlan(friend.id, index),
           ),
 
-        if (friend.isPlanAdd)
+        if (friend.isInPlan)
           InkWell(
             onTap: () => Get.toNamed(AppRoutes.friend),
             child: Container(

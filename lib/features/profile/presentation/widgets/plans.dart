@@ -51,7 +51,11 @@ Widget plans(List<PlanModel> plans) {
                 itemCount: plans.length,
                 itemBuilder: (context, index) {
                   return InkWell(
-                    onTap: () => Get.toNamed(AppRoutes.plans),
+                    onTap:
+                        () => Get.toNamed(
+                          AppRoutes.plans,
+                          arguments: plans[index].id,
+                        ),
                     child: planItem(plans[index]),
                   );
                 },

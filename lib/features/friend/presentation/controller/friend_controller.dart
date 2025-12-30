@@ -40,7 +40,7 @@ class FriendController extends GetxController {
         body: body,
       );
       if (response.isSuccess) {
-        friends[index].isPlanAdd = true;
+        friends[index].isInPlan = true;
         update();
       }
     } catch (e) {

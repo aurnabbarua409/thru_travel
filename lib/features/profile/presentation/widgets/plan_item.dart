@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_untitled/component/image/common_image.dart';
 import 'package:new_untitled/features/profile/data/plan_model.dart';
 import 'package:new_untitled/utils/constants/app_colors.dart';
+import 'package:new_untitled/utils/constants/app_images.dart';
 import 'package:new_untitled/utils/extensions/extension.dart';
 
 import '../../../../component/text/common_text.dart';
@@ -14,7 +15,8 @@ Widget planItem(PlanModel plan) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CommonImage(
-          imageSrc: plan.images.first,
+          imageSrc:
+              plan.images.isNotEmpty ? plan.images.first : AppImages.image3,
           size: 148,
           fill: BoxFit.fill,
           borderRadius: 10,

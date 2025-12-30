@@ -124,12 +124,12 @@ class ProfileController extends GetxController {
       final response = await ApiService.get(ApiEndPoint.plan);
       if (response.isSuccess) {
         final data = response.data;
-        plans.value =
-            (data['data'] as List)
-                .map((e) => PlanModel.fromJson(e))
-                .where((element) => element.images.isNotEmpty)
-                .toList();
-        update();
+        final temp = data['data'] as List;
+        appLog("all plans: $temp");
+        if (temp.isNotEmpty) {
+          plans.value = temp.map((e) => PlanModel.fromJson(e)).toList();
+          update();
+        }
       }
     } catch (e) {
       errorLog("error in fetching plan: $e");

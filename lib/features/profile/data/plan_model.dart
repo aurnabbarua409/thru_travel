@@ -1,8 +1,5 @@
-import 'package:new_untitled/features/profile/data/profile_model.dart';
-
 class PlanModel {
   final String id;
-  final LocationModel location;
   final String title;
   final String description;
   final List<String> images;
@@ -17,7 +14,6 @@ class PlanModel {
 
   PlanModel({
     required this.id,
-    required this.location,
     required this.title,
     required this.description,
     required this.images,
@@ -34,10 +30,6 @@ class PlanModel {
   factory PlanModel.fromJson(Map<String, dynamic> json) {
     return PlanModel(
       id: json['_id'] ?? '',
-      location:
-          json['location'] != null
-              ? LocationModel.fromJson(json['location'])
-              : LocationModel.empty(),
       title: json['title'] ?? '',
       description: json['description'] ?? '',
       images:
@@ -66,7 +58,6 @@ class PlanModel {
   Map<String, dynamic> toJson() {
     return {
       '_id': id,
-      'location': location.toJson(),
       'title': title,
       'description': description,
       'images': images,

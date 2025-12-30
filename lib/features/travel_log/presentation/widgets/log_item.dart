@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:new_untitled/component/text/common_text.dart';
 import 'package:new_untitled/features/travel_log/data/travel_log_model.dart';
 import 'package:new_untitled/utils/constants/app_colors.dart';
+import 'package:new_untitled/utils/constants/app_images.dart';
 import 'package:new_untitled/utils/extensions/extension.dart';
 import '../../../../component/image/common_image.dart';
 
@@ -16,7 +17,8 @@ Widget logItem(TravelLogModel item) {
     child: Row(
       children: [
         CommonImage(
-          imageSrc: item.images.first,
+          imageSrc:
+              item.images.isNotEmpty ? item.images.first : AppImages.image1,
           borderRadius: 6,
           height: 80,
           width: 100,

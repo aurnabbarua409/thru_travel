@@ -56,7 +56,7 @@ class _PostItemState extends State<PostItem> {
                       color: AppColors.black,
                     ),
                     CommonText(
-                      text: widget.happening.createdAt.checkTime,
+                      text: widget.happening.createdAt.timeAgo,
                       fontWeight: FontWeight.w400,
                       fontSize: 12,
                       color: Color(0xff828282),

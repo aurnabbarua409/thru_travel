@@ -3,17 +3,18 @@ class FriendModel {
   final String id;
   final String image;
   final String name;
+  bool isInPlan;
 
-  bool isPlanAdd;
   FriendModel({
     required this.image,
     required this.name,
-    this.isPlanAdd = false,
     required this.id,
+    required this.isInPlan,
   });
   factory FriendModel.fromJson(Map<String, dynamic> json) => FriendModel(
     id: json['_id'] ?? "",
     image: json['profile'] ?? "",
     name: json['name'] ?? "",
+    isInPlan: json['isInPlan'] ?? false,
   );
 }
