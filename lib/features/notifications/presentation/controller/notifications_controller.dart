@@ -9,10 +9,11 @@ import '../../repository/notification_repository.dart';
 
 class NotificationsController extends GetxController {
   /// Notification List
-  List notifications = [];
+  // List notifications = [];
 
   /// Notification Loading Bar
-  bool isLoading = false;
+  final isLoading = false.obs;
+  final isLoadingFriend = false.obs;
 
   /// Notification more Data Loading Bar
   bool isLoadingMore = false;
@@ -27,6 +28,9 @@ class NotificationsController extends GetxController {
   ScrollController scrollController = ScrollController();
 
   late TabController tabController;
+
+  final notifications = <NotificationModel>[].obs;
+  final friends = <FriendModel>[].obs;
 
   /// Notification More data Loading function
 
@@ -53,19 +57,55 @@ class NotificationsController extends GetxController {
   /// Notification data Loading function
   getNotificationsRepo() async {
     return;
-    if (isLoading || hasNoData) return;
-    isLoading = true;
+    // if (isLoading || hasNoData) return;
+    // isLoading = true;
+    // update();
+
+    // page++;
+    // List<NotificationModel> list = await notificationRepository(page);
+    // if (list.isEmpty) {
+    //   hasNoData = true;
+    // } else {
+    //   notifications.addAll(list);
+    // }
+    // isLoading = false;
+    // update();
+  }
+
+  void fetchNotification() async {
+    isLoading.value = true;
     update();
 
-    page++;
-    List<NotificationModel> list = await notificationRepository(page);
-    if (list.isEmpty) {
-      hasNoData = true;
-    } else {
-      notifications.addAll(list);
+    try {
+      final response = await ApiService.get(ApiEndPoint.notifications);
+      if (response.isSuccess) {
+        final data = response.data;
+        notifications.value =
+            (data['data']['data'] as List)
+                .map((e) => NotificationModel.fromJson(e))
+                .toList();
+        update();
+      }
+    } catch (e) {
+      errorLog("error in fetching notification: $e");
+    } finally {
+      isLoading.value = false;
+      update();
     }
-    isLoading = false;
-    update();
+  }
+
+  void fetchFriend() async {
+    try {
+      final response = await ApiService.get(ApiEndPoint.friend);
+      if (response.isSuccess) {
+        final data = response.data;
+        friends.value =
+            (data['data'] as List).map((e) => FriendModel.fromJson(e)).toList();
+        update();
+      }
+    } catch (e) {
+      errorLog("error in fetching friend: $e");
+    }
   }
 
   /// Notification Controller Instance create here
@@ -75,8 +115,10 @@ class NotificationsController extends GetxController {
   /// Controller on Init
   @override
   void onInit() {
-    getNotificationsRepo();
-    moreNotification();
+    // getNotificationsRepo();
+    // moreNotification();
+    fetchNotification();
+    fetchFriend();
     super.onInit();
   }
 }

@@ -18,7 +18,10 @@ class FriendController extends GetxController {
 
   void fetchFriend() async {
     try {
-      final url = "${ApiEndPoint.friend}?planId=$planId";
+      final url =
+          planId == "0"
+              ? ApiEndPoint.friend
+              : "${ApiEndPoint.friend}?planId=$planId";
       final response = await ApiService.get(url);
       if (response.isSuccess) {
         final data = response.data;

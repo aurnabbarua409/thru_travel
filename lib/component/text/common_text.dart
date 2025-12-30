@@ -37,7 +37,6 @@ class CommonText extends StatelessWidget {
   final TextOverflow overflow;
   final TextStyle? style;
   final TextDecoration decoration;
-
   final FontStyle fontStyle;
 
   @override

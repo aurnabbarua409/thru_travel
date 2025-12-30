@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_untitled/component/image/common_image.dart';
+import 'package:new_untitled/features/friend/data/friend_model.dart';
 import 'package:new_untitled/utils/constants/app_icons.dart';
 import 'package:new_untitled/utils/constants/app_string.dart';
 import '../../../../component/bottom_nav_bar/common_bottom_bar.dart';
@@ -63,12 +64,12 @@ class _NotificationScreenState extends State<NotificationScreen>
       /// Body Section starts here
       body: GetBuilder<NotificationsController>(
         builder: (controller) {
-          return Padding(
-            padding: EdgeInsets.all(16.w),
-            child: Column(
-              children: [
-                // Tab buttons
-                TabBar(
+          return Column(
+            children: [
+              // Tab buttons
+              Padding(
+                padding: EdgeInsets.all(16.w),
+                child: TabBar(
                   controller: controller.tabController,
                   indicatorSize: TabBarIndicatorSize.label,
                   dividerColor: Colors.transparent,
@@ -95,93 +96,100 @@ class _NotificationScreenState extends State<NotificationScreen>
                     Tab(text: AppString.messages),
                   ],
                 ),
+              ),
 
-                SizedBox(height: 20.h),
+              // SizedBox(height: 20.h),
 
-                // Content based on selected tab
-                Expanded(
-                  child: TabBarView(
-                    controller: controller.tabController,
-                    children: [
-                      Center(
-                        child:
-                            controller.isLoading
-                                /// Loading bar here
-                                ? const CommonLoader()
-                                : controller.notifications.isEmpty
-                                ///  data is Empty then show default Data
-                                ? const NoData()
-                                /// show all Notifications here
-                                : ListView.builder(
-                                  controller: controller.scrollController,
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 20.sp,
-                                    vertical: 10.sp,
-                                  ),
-                                  itemCount:
-                                      controller.isLoadingMore
-                                          ? controller.notifications.length + 1
-                                          : controller.notifications.length,
-                                  physics: const BouncingScrollPhysics(),
-                                  itemBuilder: (context, index) {
-                                    ///  Notification More Data Loading Bar
-                                    if (index >
-                                        controller.notifications.length) {
-                                      return CommonLoader(
-                                        size: 40,
-                                        strokeWidth: 2,
-                                      );
-                                    }
-                                    NotificationModel item =
-                                        controller.notifications[index];
+              // Content based on selected tab
+              Expanded(
+                child: TabBarView(
+                  controller: controller.tabController,
+                  children: [
+                    Center(
+                      child:
+                          controller.isLoading.value
+                              /// Loading bar here
+                              ? const CommonLoader()
+                              : controller.notifications.isEmpty
+                              ///  data is Empty then show default Data
+                              ? const NoData()
+                              /// show all Notifications here
+                              : ListView.builder(
+                                controller: controller.scrollController,
+                                // padding: EdgeInsets.symmetric(
+                                //   horizontal: 20.sp,
+                                //   vertical: 10.sp,
+                                // ),
+                                itemCount:
+                                    controller.isLoadingMore
+                                        ? controller.notifications.length + 1
+                                        : controller.notifications.length,
+                                physics: const BouncingScrollPhysics(),
+                                itemBuilder: (context, index) {
+                                  //  Notification More Data Loading Bar
+                                  if (index > controller.notifications.length) {
+                                    return CommonLoader(
+                                      size: 40,
+                                      strokeWidth: 2,
+                                    );
+                                  }
+                                  NotificationModel item =
+                                      controller.notifications[index];
 
-                                    ///  Notification card item
-                                    return NotificationItem(item: item);
-                                  },
-                                ),
-                      ),
-                      Center(
-                        child:
-                            controller.isLoading
-                                /// Loading bar here
-                                ? const CommonLoader()
-                                : controller.notifications.isEmpty
-                                ///  data is Empty then show default Data
-                                ? const NoData()
-                                /// show all Notifications here
-                                : ListView.builder(
-                                  controller: controller.scrollController,
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 20.sp,
-                                    vertical: 10.sp,
-                                  ),
-                                  itemCount:
-                                      controller.isLoadingMore
-                                          ? controller.notifications.length + 1
-                                          : controller.notifications.length,
-                                  physics: const BouncingScrollPhysics(),
-                                  itemBuilder: (context, index) {
-                                    ///  Notification More Data Loading Bar
-                                    if (index >
-                                        controller.notifications.length) {
-                                      return CommonLoader(
-                                        size: 40,
-                                        strokeWidth: 2,
-                                      );
-                                    }
-                                    NotificationModel item =
-                                        controller.notifications[index];
+                                  ///  Notification card item
+                                  return NotificationItem(
+                                    image: item.from.profile,
+                                    user: item.from.name,
+                                    time: item.createdAt,
+                                    message: item.body,
+                                  );
+                                },
+                              ),
+                    ),
+                    Center(
+                      child:
+                          controller.isLoading.value
+                              /// Loading bar here
+                              ? const CommonLoader()
+                              : controller.friends.isEmpty
+                              ///  data is Empty then show default Data
+                              ? const NoData()
+                              /// show all Notifications here
+                              : ListView.builder(
+                                controller: controller.scrollController,
+                                // padding: EdgeInsets.symmetric(
+                                //   horizontal: 20.sp,
+                                //   vertical: 10.sp,
+                                // ),
+                                itemCount:
+                                    controller.isLoadingFriend.value
+                                        ? controller.friends.length + 1
+                                        : controller.friends.length,
+                                physics: const BouncingScrollPhysics(),
+                                itemBuilder: (context, index) {
+                                  ///  Notification More Data Loading Bar
+                                  if (index > controller.friends.length) {
+                                    return CommonLoader(
+                                      size: 40,
+                                      strokeWidth: 2,
+                                    );
+                                  }
+                                  FriendModel item = controller.friends[index];
 
-                                    ///  Notification card item
-                                    return NotificationItem(item: item);
-                                  },
-                                ),
-                      ),
-                    ],
-                  ),
+                                  ///  Notification card item
+                                  return NotificationItem(
+                                    image: item.image,
+                                    user: item.name,
+                                    time: item.createdAt,
+                                    message: "No message found",
+                                  );
+                                },
+                              ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           );
         },
 

@@ -21,33 +21,35 @@ Widget friendItem(FriendController controller, int index) {
         CommonImage(imageSrc: friend.image, borderRadius: 50, size: 48),
         CommonText(text: friend.name, left: 16),
         Spacer(),
-        if (!friend.isInPlan)
-          CommonButton(
-            titleText: "Add to Plans",
-            buttonHeight: 32,
-            buttonWidth: 90,
-            titleSize: 14,
-            titleWeight: FontWeight.w500,
-            titleColor: AppColors.white,
-            buttonColor: AppColors.black,
-            borderColor: AppColors.transparent,
-            onTap: () => controller.addToPlan(friend.id, index),
-          ),
-
-        if (friend.isInPlan)
-          InkWell(
-            onTap: () => Get.toNamed(AppRoutes.friend),
-            child: Container(
-              width: 90.w,
-              height: 32.h,
-              decoration: BoxDecoration(
-                color: AppColors.black,
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-
-              child: CommonImage(imageSrc: AppIcons.clear, size: 20).center,
+        if (controller.planId != "0") ...[
+          if (!friend.isInPlan)
+            CommonButton(
+              titleText: "Add to Plans",
+              buttonHeight: 32,
+              buttonWidth: 90,
+              titleSize: 14,
+              titleWeight: FontWeight.w500,
+              titleColor: AppColors.white,
+              buttonColor: AppColors.black,
+              borderColor: AppColors.transparent,
+              onTap: () => controller.addToPlan(friend.id, index),
             ),
-          ),
+
+          if (friend.isInPlan)
+            InkWell(
+              onTap: () => Get.toNamed(AppRoutes.friend),
+              child: Container(
+                width: 90.w,
+                height: 32.h,
+                decoration: BoxDecoration(
+                  color: AppColors.black,
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+
+                child: CommonImage(imageSrc: AppIcons.clear, size: 20).center,
+              ),
+            ),
+        ],
       ],
     ),
   );
