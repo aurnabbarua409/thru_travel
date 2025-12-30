@@ -22,7 +22,7 @@ Widget friendItem(FriendController controller, int index) {
         CommonText(text: friend.name, left: 16),
         Spacer(),
         if (controller.planId != "0") ...[
-          if (!friend.isInPlan)
+          if (!friend.isInPlan && !friend.isPlanRequestSent)
             CommonButton(
               titleText: "Add to Plans",
               buttonHeight: 32,
@@ -35,7 +35,20 @@ Widget friendItem(FriendController controller, int index) {
               onTap: () => controller.addToPlan(friend.id, index),
             ),
 
-          if (friend.isInPlan)
+          if (!friend.isInPlan && friend.isPlanRequestSent)
+            CommonButton(
+              titleText: "Requested",
+              buttonHeight: 32,
+              buttonWidth: 120,
+              titleSize: 14,
+              titleWeight: FontWeight.w500,
+              titleColor: AppColors.white,
+              buttonColor: AppColors.black,
+              borderColor: AppColors.transparent,
+              onTap: () => controller.addToPlan(friend.id, index),
+            ),
+
+          if (friend.isInPlan && !friend.isPlanRequestSent)
             InkWell(
               onTap: () => Get.toNamed(AppRoutes.friend),
               child: Container(

@@ -5,13 +5,15 @@ class FriendModel {
   final String name;
   final DateTime createdAt;
   bool isInPlan;
+  bool isPlanRequestSent;
 
   FriendModel({
+    required this.id,
     required this.image,
     required this.name,
-    required this.id,
-    required this.isInPlan,
     required this.createdAt,
+    required this.isInPlan,
+    required this.isPlanRequestSent,
   });
   factory FriendModel.fromJson(Map<String, dynamic> json) => FriendModel(
     id: json['_id'] ?? "",
@@ -22,5 +24,6 @@ class FriendModel {
         json['createdAt'] != null
             ? DateTime.parse(json['createdAt'])
             : DateTime.now(),
+    isPlanRequestSent: json['isPlanRequestSent'] ?? false,
   );
 }
