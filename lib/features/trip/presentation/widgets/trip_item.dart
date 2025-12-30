@@ -14,7 +14,12 @@ Widget tripItem(BuildContext context, EventModel event) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      CommonImage(imageSrc: event.thumbnail, height: 150, width: Get.width),
+      CommonImage(
+        imageSrc: event.thumbnail,
+        height: 150,
+        width: Get.width,
+        fill: BoxFit.cover,
+      ),
       CommonText(
         text: event.title,
         fontSize: 14,

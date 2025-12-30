@@ -26,7 +26,7 @@ Widget friendItem(FriendController controller, int index) {
             CommonButton(
               titleText: "Add to Plans",
               buttonHeight: 32,
-              buttonWidth: 90,
+              buttonWidth: 120,
               titleSize: 14,
               titleWeight: FontWeight.w500,
               titleColor: AppColors.white,

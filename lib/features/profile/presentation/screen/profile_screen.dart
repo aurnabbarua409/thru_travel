@@ -25,7 +25,7 @@ class ProfileScreen extends StatelessWidget {
                 children: [
                   personalInfo(controller),
                   30.height,
-                  plans(controller.plans),
+                  plans(controller.plans, controller.planLoading.value),
                 ],
               ),
             ),

@@ -79,14 +79,14 @@ class EditProfile extends StatelessWidget {
                   ),
 
                   /// user all information filed here
-                  EditProfileAllFiled(controller: controller),
+                  // EditProfileAllFiled(controller: controller),
                   30.height,
 
                   /// Submit Button here
                   CommonButton(
                     titleText: AppString.saveAndChanges,
                     isLoading: controller.isLoading,
-                    onTap: controller.editProfileRepo,
+                    onTap: controller.editProfilePicture,
                   ),
                 ],
               ),

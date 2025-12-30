@@ -6,6 +6,9 @@ import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_images.dart';
 
 Widget personalInfo(ProfileController controller) {
+  if (controller.profileLoading.value) {
+    return Center(child: CircularProgressIndicator.adaptive());
+  }
   return Column(
     children: [
       /// User Profile Image here

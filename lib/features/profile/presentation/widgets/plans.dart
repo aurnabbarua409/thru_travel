@@ -9,7 +9,7 @@ import 'package:new_untitled/utils/extensions/extension.dart';
 
 import '../../../../config/route/app_routes.dart';
 
-Widget plans(List<PlanModel> plans) {
+Widget plans(List<PlanModel> plans, bool isLoading) {
   return Container(
     decoration: BoxDecoration(color: Color(0xffCFE9C3)),
     child: Column(
@@ -38,7 +38,9 @@ Widget plans(List<PlanModel> plans) {
         ),
 
         12.height,
-        plans.isEmpty
+        isLoading
+            ? Center(child: CircularProgressIndicator.adaptive())
+            : plans.isEmpty
             ? SizedBox(
               height: 215.h,
               child: Center(child: Text("No plan found")),

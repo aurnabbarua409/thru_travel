@@ -1,9 +1,13 @@
-import 'package:flutter/foundation.dart';
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide FormData, MultipartFile;
 import 'package:new_untitled/features/profile/data/plan_model.dart';
 import 'package:new_untitled/features/profile/data/profile_model.dart';
+import 'package:new_untitled/services/storage/storage_keys.dart';
 import 'package:new_untitled/services/storage/storage_services.dart';
+import 'package:new_untitled/utils/constants/app_images.dart';
 import 'package:new_untitled/utils/helpers/other_helper.dart';
 import 'package:new_untitled/utils/log/error_log.dart';
 
@@ -22,6 +26,8 @@ class ProfileController extends GetxController {
 
   final user = Rxn<ProfileModel>();
   final plans = <PlanModel>[].obs;
+  final profileLoading = false.obs;
+  final planLoading = false.obs;
 
   /// form key here
   final formKey = GlobalKey<FormState>();
@@ -51,16 +57,72 @@ class ProfileController extends GetxController {
   getProfileImage() async {
     image = await OtherHelper.openGalleryForProfile();
     update();
+    // editProfilePicture();
+  }
+
+  // void editProfilePicture() async {
+  //   try {
+  //     await ApiService.multipart(
+  //       ApiEndPoint.uploadImage,
+  //       body: {
+  //         'data': jsonEncode({"type": "profile"}),
+  //       },
+  //       imagePath: image,
+  //     );
+  //   } catch (e) {
+  //     errorLog("error in upload image: $e");
+  //   }
+  // }
+  void editProfilePicture() async {
+    if (image == null) return;
+    final url = "${ApiEndPoint.baseUrl}${ApiEndPoint.uploadImage}";
+    try {
+      final dio = Dio();
+      final formData = FormData.fromMap({
+        'data': jsonEncode({"type": "profile"}),
+        'images': await MultipartFile.fromFile(image!),
+      });
+      appLog("url: $url \n for image: ${formData.fields}, ${formData.files}");
+      final response = await dio.post(
+        url,
+        data: formData,
+        options: Options(
+          headers: {
+            'Authorization': "Bearer ${LocalStorage.token}",
+            'Content-Type': 'multipart/form-data',
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        fetchProfile();
+        Get.back();
+      }
+    } on DioException catch (e) {
+      errorLog("error fron dio uploading picture: ${e.message}");
+    } catch (e) {
+      errorLog("error in uploading picture: $e");
+    }
   }
 
   void fetchProfile() async {
-    final response = await ApiService.get(ApiEndPoint.user);
-    if (response.isSuccess) {
-      final data = response.data;
-      user.value = ProfileModel.fromJson(data['data']);
+    profileLoading.value = true;
+    update();
+    try {
+      final response = await ApiService.get(ApiEndPoint.userProfile);
+      if (response.isSuccess) {
+        final data = response.data;
+        user.value = ProfileModel.fromJson(data['data']);
+        LocalStorage.myImage = user.value!.profile;
+        update();
+        LocalStorage.setString(LocalStorageKeys.myImage, LocalStorage.myImage!);
+      } else {
+        Get.snackbar("Error", response.message);
+      }
+    } catch (e) {
+      errorLog("error in fetching profile: $e");
+    } finally {
+      profileLoading.value = false;
       update();
-    } else {
-      Get.snackbar("Error", response.message);
     }
   }
 
@@ -74,7 +136,7 @@ class ProfileController extends GetxController {
   onChangeOption(String value) {
     appLog(value);
     if (value == "Profile Picture") {
-      Get.toNamed(AppRoutes.addPhoto);
+      Get.toNamed(AppRoutes.editProfile);
     } else if (value == "Location") {
       Get.toNamed(AppRoutes.addLocation);
     } else if (value == "Bio") {
@@ -86,7 +148,7 @@ class ProfileController extends GetxController {
   void editBio() async {
     try {
       final response = await ApiService.patch(
-        ApiEndPoint.user,
+        ApiEndPoint.userProfile,
         body: {'bio': bioController.text.trim()},
       );
       if (response.isSuccess) {
@@ -104,7 +166,7 @@ class ProfileController extends GetxController {
   void editLocation() async {
     try {
       final response = await ApiService.patch(
-        ApiEndPoint.user,
+        ApiEndPoint.userProfile,
         body: {'address': locationController.text.trim()},
       );
       if (response.isSuccess) {
@@ -120,6 +182,8 @@ class ProfileController extends GetxController {
   }
 
   void fetchPlan() async {
+    planLoading.value = true;
+    update();
     try {
       final response = await ApiService.get(ApiEndPoint.plan);
       if (response.isSuccess) {
@@ -133,6 +197,9 @@ class ProfileController extends GetxController {
       }
     } catch (e) {
       errorLog("error in fetching plan: $e");
+    } finally {
+      planLoading.value = false;
+      update();
     }
   }
 
@@ -155,7 +222,7 @@ class ProfileController extends GetxController {
     };
 
     var response = await ApiService.multipart(
-      ApiEndPoint.user,
+      ApiEndPoint.userProfile,
       body: body,
       imagePath: image,
       imageName: "image",
@@ -170,7 +237,7 @@ class ProfileController extends GetxController {
       LocalStorage.myEmail = data['data']?["email"] ?? "";
 
       LocalStorage.setString("userId", LocalStorage.userId);
-      LocalStorage.setString("myImage", LocalStorage.myImage);
+      LocalStorage.setString("myImage", LocalStorage.myImage!);
       LocalStorage.setString("myName", LocalStorage.myName);
       LocalStorage.setString("myEmail", LocalStorage.myEmail);
 

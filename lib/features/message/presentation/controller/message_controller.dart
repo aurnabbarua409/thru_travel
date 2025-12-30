@@ -84,7 +84,7 @@ class MessageController extends GetxController {
       ChatMessageModel(
         time: DateTime.now(),
         text: messageController.text,
-        image: LocalStorage.myImage,
+        image: LocalStorage.myImage!,
         isMe: true,
       ),
 

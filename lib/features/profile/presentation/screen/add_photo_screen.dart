@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:new_untitled/utils/extensions/extension.dart';
@@ -12,51 +14,68 @@ class AddPhotoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      /// App Bar Section Starts here
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        centerTitle: false,
-        title: const CommonText(
-          text: "Enos Lewis",
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-          color: Colors.black,
-        ),
-      ),
-
-      /// Body Section Starts here
-      body: GetBuilder<ProfileController>(
-        builder: (controller) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CommonImage(imageSrc: AppImages.image1),
-
-              16.height,
-              Expanded(
-                child: GridView.builder(
-                  itemCount: 9,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                  ),
-                  itemBuilder: (context, index) {
-                    return CommonImage(
-                      height: 127,
-                      width: 99,
-                      fill: BoxFit.fill,
-                      imageSrc: AppImages.image8,
-                    );
-                  },
-                ),
+    return GetBuilder<ProfileController>(
+      builder:
+          (controller) => Scaffold(
+            /// App Bar Section Starts here
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              centerTitle: false,
+              title: CommonText(
+                text: controller.user.value?.name ?? "N/A",
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
               ),
-            ],
-          );
-        },
-      ),
+            ),
 
-      /// Bottom Navigation Bar Section Starts here
-      bottomNavigationBar: const CommonBottomNavBar(currentIndex: 4),
+            /// Body Section Starts here
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 300,
+                  child: GestureDetector(
+                    onTap: () => controller.getProfileImage(),
+                    child: Center(
+                      child:
+                          controller.image != null
+                              ? Image.file(
+                                File(controller.image!),
+                                fit: BoxFit.cover,
+                              )
+                              : CommonImage(
+                                imageSrc:
+                                    controller.user.value?.profile ??
+                                    AppImages.image1,
+                              ),
+                    ),
+                  ),
+                ),
+
+                16.height,
+                Expanded(
+                  child: GridView.builder(
+                    itemCount: 9,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                    ),
+                    itemBuilder: (context, index) {
+                      return CommonImage(
+                        height: 127,
+                        width: 99,
+                        fill: BoxFit.fill,
+                        imageSrc: AppImages.image8,
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+
+            /// Bottom Navigation Bar Section Starts here
+            bottomNavigationBar: const CommonBottomNavBar(currentIndex: 4),
+          ),
     );
   }
 }

@@ -43,6 +43,7 @@ class _PostItemState extends State<PostItem> {
                 imageSrc: widget.happening.createdBy.profile,
                 size: 32,
                 borderRadius: 50,
+                fill: BoxFit.cover,
               ),
               12.width,
               Expanded(

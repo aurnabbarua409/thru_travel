@@ -10,7 +10,7 @@ class LocalStorage {
   static String refreshToken = "";
   static bool isLogIn = false;
   static String userId = "";
-  static String myImage = "";
+  static String? myImage = "";
   static String myName = "";
   static String myEmail = "";
 
