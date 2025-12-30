@@ -88,11 +88,12 @@ class SignUpController extends GetxController {
       var response = await ApiService.post(ApiEndPoint.signUp, body: body);
 
       if (response.statusCode == 200) {
-        var data = response.data;
+        // var data = response.data;
         // signUpToken = data['data']['signUpToken'];
+        Utils.snackBar(response.message);
         Get.toNamed(AppRoutes.verifyUser);
       } else {
-        Utils.errorSnackBar(response.statusCode.toString(), response.message);
+        Utils.snackBar(response.message);
       }
     } catch (e) {
       errorLog("error in signup: $e");
@@ -158,7 +159,7 @@ class SignUpController extends GetxController {
         ;
         LocalStorage.setString(LocalStorageKeys.myName, LocalStorage.myName);
         LocalStorage.setString(LocalStorageKeys.myEmail, LocalStorage.myEmail);
-
+        Utils.snackBar(response.message);
         Get.offAllNamed(AppRoutes.home);
         // if (LocalStorage.myRole == 'consultant') {
         //   Get.toNamed(AppRoutes.personalInformation);
@@ -166,7 +167,7 @@ class SignUpController extends GetxController {
         //   Get.offAllNamed(AppRoutes.patientsHome);
         // }
       } else {
-        Get.snackbar(response.statusCode.toString(), response.message);
+        Utils.snackBar(response.message);
       }
     } catch (e) {
       errorLog("error in signup verify: $e");

@@ -1,9 +1,7 @@
-import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:new_untitled/config/api/api_end_point.dart';
 import 'package:new_untitled/features/happening/data/happening_model.dart';
 import 'package:new_untitled/services/api/api_service.dart';
-import 'package:new_untitled/services/storage/storage_services.dart';
 import 'package:new_untitled/utils/app_utils.dart';
 import 'package:new_untitled/utils/log/error_log.dart';
 
@@ -40,11 +38,7 @@ class HappeningController extends GetxController {
         ApiEndPoint.comments,
         body: {"planId": planId, "content": content},
       );
-      if (response.isSuccess) {
-        Utils.successSnackBar("Success", response.message);
-      } else {
-        Utils.errorSnackBar("Failed", response.message);
-      }
+      Utils.snackBar(response.message);
     } catch (e) {
       errorLog("error in sendComment: $e");
     }

@@ -10,27 +10,28 @@ import '../../../config/route/app_routes.dart';
 import '../../../utils/constants/app_colors.dart';
 import '../../features/trip/presentation/controller/trip_controller.dart';
 
-List<Widget> _list = [
-  CommonImage(imageSrc: AppIcons.notification),
-  CommonImage(imageSrc: AppIcons.search),
-  CommonImage(imageSrc: AppIcons.home),
-  CommonImage(imageSrc: AppIcons.train),
-  ClipOval(
-    child: CommonImage(
-      imageSrc: LocalStorage.myImage ?? AppImages.profileIcon,
-      size: 24.sp,
-      fill: BoxFit.cover,
-    ),
-  ),
-];
-
 class CommonBottomNavBar extends StatelessWidget {
   final int currentIndex;
 
   const CommonBottomNavBar({required this.currentIndex, super.key});
-
+  static RxnString profileImage = RxnString(LocalStorage.myImage);
   @override
   Widget build(BuildContext context) {
+    List<Widget> _list = [
+      CommonImage(imageSrc: AppIcons.notification),
+      CommonImage(imageSrc: AppIcons.search),
+      CommonImage(imageSrc: AppIcons.home),
+      CommonImage(imageSrc: AppIcons.train),
+      Obx(
+        () => ClipOval(
+          child: CommonImage(
+            imageSrc: profileImage.value ?? AppImages.profileIcon,
+            size: 24.sp,
+            fill: BoxFit.cover,
+          ),
+        ),
+      ),
+    ];
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
       child: Container(

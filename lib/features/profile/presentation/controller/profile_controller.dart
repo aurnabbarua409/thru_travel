@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide FormData, MultipartFile;
+import 'package:new_untitled/component/bottom_nav_bar/common_bottom_bar.dart';
 import 'package:new_untitled/features/profile/data/plan_model.dart';
 import 'package:new_untitled/features/profile/data/profile_model.dart';
 import 'package:new_untitled/services/storage/storage_keys.dart';
@@ -94,8 +95,11 @@ class ProfileController extends GetxController {
         ),
       );
       if (response.statusCode == 200) {
+        Utils.snackBar(response.data['message']);
         fetchProfile();
         Get.back();
+      } else {
+        Utils.snackBar(response.data['message']);
       }
     } on DioException catch (e) {
       errorLog("error fron dio uploading picture: ${e.message}");
@@ -113,10 +117,11 @@ class ProfileController extends GetxController {
         final data = response.data;
         user.value = ProfileModel.fromJson(data['data']);
         LocalStorage.myImage = user.value!.profile;
+        CommonBottomNavBar.profileImage.value = LocalStorage.myImage;
         update();
         LocalStorage.setString(LocalStorageKeys.myImage, LocalStorage.myImage!);
       } else {
-        Get.snackbar("Error", response.message);
+        Utils.snackBar(response.message);
       }
     } catch (e) {
       errorLog("error in fetching profile: $e");
@@ -155,8 +160,9 @@ class ProfileController extends GetxController {
         user.value!.bio = bioController.text.trim();
         bioController.clear();
         update();
+        Utils.snackBar(response.message);
       } else {
-        Get.snackbar("Error", response.message);
+        Utils.snackBar(response.message);
       }
     } catch (e) {
       errorLog("error in editing bio: $e");
@@ -173,8 +179,9 @@ class ProfileController extends GetxController {
         user.value!.address = locationController.text.trim();
         locationController.clear();
         update();
+        Utils.snackBar(response.message);
       } else {
-        Get.snackbar("Error", response.message);
+        Utils.snackBar(response.message);
       }
     } catch (e) {
       errorLog("error in editing location: $e");
@@ -194,6 +201,8 @@ class ProfileController extends GetxController {
           plans.value = temp.map((e) => PlanModel.fromJson(e)).toList();
           update();
         }
+      } else {
+        Utils.snackBar(response.message);
       }
     } catch (e) {
       errorLog("error in fetching plan: $e");
@@ -241,10 +250,10 @@ class ProfileController extends GetxController {
       LocalStorage.setString("myName", LocalStorage.myName);
       LocalStorage.setString("myEmail", LocalStorage.myEmail);
 
-      Utils.successSnackBar("Successfully Profile Updated", response.message);
+      Utils.snackBar(response.message);
       Get.toNamed(AppRoutes.profile);
     } else {
-      Utils.errorSnackBar(response.statusCode, response.message);
+      Utils.snackBar(response.message);
     }
 
     isLoading = false;

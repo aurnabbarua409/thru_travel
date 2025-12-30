@@ -33,7 +33,13 @@ class AddBioScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Center(child: CommonImage(imageSrc: AppImages.image1)),
+                  Center(
+                    child: CommonImage(
+                      imageSrc: controller.user.value!.profile,
+                      height: 200,
+                      fill: BoxFit.cover,
+                    ),
+                  ),
 
                   Padding(
                     padding: const EdgeInsets.all(8.0),

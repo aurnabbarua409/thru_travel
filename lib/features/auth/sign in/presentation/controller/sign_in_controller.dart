@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:new_untitled/utils/app_utils.dart';
 import 'package:new_untitled/utils/log/error_log.dart';
 import '../../../../../config/route/app_routes.dart';
 import '../../../../../services/api/api_service.dart';
@@ -61,12 +63,12 @@ class SignInController extends GetxController {
         // } else {
         //   Get.offAllNamed(AppRoutes.patientsHome);
         // }
-
+        Utils.snackBar(response.message);
         emailController.clear();
         passwordController.clear();
         Get.offAllNamed(AppRoutes.home);
       } else {
-        Get.snackbar(response.statusCode.toString(), response.message);
+        Utils.snackBar(response.message);
       }
     } catch (e) {
       errorLog("error in signin: $e");

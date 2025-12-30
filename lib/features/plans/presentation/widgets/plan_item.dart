@@ -42,6 +42,7 @@ class _PlanItemState extends State<PlanItem> {
                     imageSrc: widget.plan.images.first,
                     height: 47,
                     width: 100,
+                    fill: BoxFit.cover,
                   ),
                   10.width,
                   Expanded(

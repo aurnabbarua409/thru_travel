@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:new_untitled/config/api/api_end_point.dart';
 import 'package:new_untitled/features/travel_log/data/travel_log_model.dart';
 import 'package:new_untitled/services/api/api_service.dart';
+import 'package:new_untitled/utils/app_utils.dart';
 import 'package:new_untitled/utils/log/error_log.dart';
 
 class TravelLogController extends GetxController {
@@ -35,6 +36,8 @@ class TravelLogController extends GetxController {
               temp.map((e) => TravelLogModel.fromJson(e)).toList();
           update();
         }
+      } else {
+        Utils.snackBar(response.message);
       }
     } catch (e) {
       errorLog("error in fetching travel log: $e");

@@ -52,10 +52,11 @@ class EditProfile extends StatelessWidget {
                                       height: 170,
                                       fit: BoxFit.fill,
                                     )
-                                    : const CommonImage(
-                                      imageSrc: AppImages.profile,
+                                    : CommonImage(
+                                      imageSrc: controller.user.value!.profile,
                                       height: 170,
                                       width: 170,
+                                      fill: BoxFit.cover,
                                     ),
                           ),
                         ),

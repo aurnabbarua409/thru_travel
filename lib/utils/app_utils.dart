@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'constants/app_colors.dart';
@@ -22,5 +23,11 @@ class Utils {
       backgroundColor: AppColors.red,
       snackPosition: SnackPosition.TOP,
     );
+  }
+
+  static snackBar(String message) {
+    ScaffoldMessenger.of(Get.context!)
+      ..clearSnackBars()
+      ..showSnackBar(SnackBar(content: Text(message)));
   }
 }

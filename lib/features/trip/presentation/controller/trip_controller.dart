@@ -3,6 +3,7 @@ import 'package:new_untitled/config/api/api_end_point.dart';
 import 'package:new_untitled/config/route/app_routes.dart';
 import 'package:new_untitled/features/trip/data/event_model.dart';
 import 'package:new_untitled/services/api/api_service.dart';
+import 'package:new_untitled/utils/app_utils.dart';
 import 'package:new_untitled/utils/log/app_log.dart';
 import 'package:new_untitled/utils/log/error_log.dart';
 
@@ -74,6 +75,8 @@ class TripController extends GetxController {
                 .map((e) => EventModel.fromJson(e))
                 .toList();
         update();
+      } else {
+        Utils.snackBar(response.message);
       }
     } catch (e) {
       errorLog("error in fetching event: $e");
@@ -95,8 +98,11 @@ class TripController extends GetxController {
         body: body,
       );
       if (response.isSuccess) {
+        Utils.snackBar(response.message);
         final data = response.data;
         return data['data']['plan']['_id'].toString();
+      } else {
+        Utils.snackBar(response.message);
       }
       return null;
     } catch (e) {

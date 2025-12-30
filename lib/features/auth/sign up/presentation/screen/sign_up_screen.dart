@@ -48,7 +48,7 @@ class SignUpScreen extends StatelessWidget {
                         CommonButton(
                           titleText: AppString.signUp,
                           isLoading: controller.isLoading,
-                          onTap: controller.signUpUser,
+                          onTap: controller.signUpUser(),
                           buttonWidth: 236,
                           buttonHeight: 40,
                           borderColor: AppColors.transparent,

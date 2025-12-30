@@ -49,6 +49,7 @@ class AddExperienceController extends GetxController {
         body: body,
       );
       if (response.isSuccess) {
+        Utils.snackBar(response.message);
         // Utils.successSnackBar("Success", response.message);
         Get.back();
       }

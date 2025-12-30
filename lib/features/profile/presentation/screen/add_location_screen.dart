@@ -33,7 +33,11 @@ class AddLocationScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CommonImage(imageSrc: AppImages.image1),
+                CommonImage(
+                  imageSrc: controller.user.value!.profile,
+                  height: 200,
+                  fill: BoxFit.cover,
+                ),
 
                 Padding(
                   padding: const EdgeInsets.all(8.0),

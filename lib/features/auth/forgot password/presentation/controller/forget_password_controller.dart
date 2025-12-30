@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:new_untitled/utils/log/error_log.dart';
 
@@ -84,10 +83,10 @@ class ForgetPasswordController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        Utils.successSnackBar(response.statusCode.toString(), response.message);
+        Utils.snackBar(response.message);
         Get.toNamed(AppRoutes.verifyEmail);
       } else {
-        Get.snackbar(response.statusCode.toString(), response.message);
+        Utils.snackBar(response.message);
       }
     } catch (e) {
       errorLog("error in forgot pass: $e");
@@ -114,9 +113,10 @@ class ForgetPasswordController extends GetxController {
     if (response.statusCode == 200) {
       var data = response.data;
       forgetPasswordToken = data['data']['token'];
+      Utils.snackBar(response.message);
       Get.toNamed(AppRoutes.createPassword);
     } else {
-      Get.snackbar(response.statusCode.toString(), response.message);
+      Utils.snackBar(response.message);
     }
 
     isLoadingVerify = false;
@@ -143,7 +143,7 @@ class ForgetPasswordController extends GetxController {
     );
 
     if (response.statusCode == 200) {
-      Utils.successSnackBar(response.message, response.message);
+      Utils.snackBar(response.message);
 
       emailController.clear();
       otpController.clear();
@@ -151,7 +151,7 @@ class ForgetPasswordController extends GetxController {
       confirmPasswordController.clear();
       Get.offAllNamed(AppRoutes.signIn);
     } else {
-      Get.snackbar(response.statusCode.toString(), response.message);
+      Utils.snackBar(response.message);
     }
     isLoadingReset = false;
     update();
