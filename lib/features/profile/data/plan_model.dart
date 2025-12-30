@@ -10,7 +10,6 @@ class PlanModel {
   final DateTime endDate;
   final String address;
   final String link;
-  final List<dynamic> friends;
   final int commentCount;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -25,7 +24,6 @@ class PlanModel {
     required this.date,
     required this.address,
     required this.link,
-    required this.friends,
     required this.commentCount,
     required this.createdAt,
     required this.updatedAt,
@@ -42,7 +40,10 @@ class PlanModel {
               : LocationModel.empty(),
       title: json['title'] ?? '',
       description: json['description'] ?? '',
-      images: List<String>.from(json['images'] ?? []),
+      images:
+          json['images'] != null
+              ? (json['images'] as List).map((e) => e.toString()).toList()
+              : [],
       date:
           DateTime.tryParse(json['date'] ?? '') ??
           DateTime.fromMillisecondsSinceEpoch(0),
@@ -51,7 +52,6 @@ class PlanModel {
           DateTime.fromMillisecondsSinceEpoch(0),
       address: json['address'] ?? '',
       link: json['link'] ?? '',
-      friends: json['friends'] ?? [],
       commentCount: json['commentCount'] ?? 0,
       createdAt:
           DateTime.tryParse(json['createdAt'] ?? '') ??
@@ -73,7 +73,6 @@ class PlanModel {
       'date': date.toIso8601String(),
       'address': address,
       'link': link,
-      'friends': friends,
       'commentCount': commentCount,
       'createdAt': createdAt.toIso8601String(),
       'updatedAt': updatedAt.toIso8601String(),

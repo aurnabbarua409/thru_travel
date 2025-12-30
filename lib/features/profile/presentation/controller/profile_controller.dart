@@ -125,7 +125,10 @@ class ProfileController extends GetxController {
       if (response.isSuccess) {
         final data = response.data;
         plans.value =
-            (data['data'] as List).map((e) => PlanModel.fromJson(e)).toList();
+            (data['data'] as List)
+                .map((e) => PlanModel.fromJson(e))
+                .where((element) => element.images.isNotEmpty)
+                .toList();
         update();
       }
     } catch (e) {

@@ -10,7 +10,6 @@ class HappeningModel {
   final String address;
   final String link;
   final List<ActivityModel> activities;
-  final List<dynamic> friends;
   int commentCount;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -28,7 +27,6 @@ class HappeningModel {
     required this.address,
     required this.link,
     required this.activities,
-    required this.friends,
     required this.commentCount,
     required this.createdAt,
     required this.updatedAt,
@@ -63,7 +61,6 @@ class HappeningModel {
                   .map((e) => ActivityModel.fromJson(e))
                   .toList()
               : [],
-      friends: json['friends'] ?? [],
       commentCount: json['commentCount'] ?? 0,
       createdAt:
           DateTime.tryParse(json['createdAt'] ?? '') ??
@@ -88,7 +85,6 @@ class HappeningModel {
       'address': address,
       'link': link,
       'activities': activities,
-      'friends': friends,
       'commentCount': commentCount,
       'createdAt': createdAt.toIso8601String(),
       'updatedAt': updatedAt.toIso8601String(),

@@ -29,11 +29,16 @@ class TravelLogController extends GetxController {
       final response = await ApiService.get(ApiEndPoint.travelLog);
       if (response.isSuccess) {
         final data = response.data;
-        travelLogs.value =
-            (data['data'] as List)
-                .map((e) => TravelLogModel.fromJson(e))
-                .toList();
-        update();
+        final temp = data['data'] as List;
+        if (temp.isNotEmpty) {
+          travelLogs.value =
+              temp
+                  .where((e) => e != null)
+                  .map((e) => TravelLogModel.fromJson(e))
+                  .where((e) => e.images.isNotEmpty)
+                  .toList();
+          update();
+        }
       }
     } catch (e) {
       errorLog("error in fetching travel log: $e");

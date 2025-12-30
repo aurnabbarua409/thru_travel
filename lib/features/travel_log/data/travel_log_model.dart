@@ -1,6 +1,5 @@
 class TravelLogModel {
   final String id;
-  final LocationModel location;
   final String createdBy;
   final String title;
   final String description;
@@ -9,8 +8,6 @@ class TravelLogModel {
   final DateTime endDate;
   final String address;
   final String link;
-  final List<dynamic> activities;
-  final List<dynamic> friends;
   final int commentCount;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -18,7 +15,6 @@ class TravelLogModel {
 
   TravelLogModel({
     required this.id,
-    required this.location,
     required this.createdBy,
     required this.title,
     required this.description,
@@ -27,8 +23,6 @@ class TravelLogModel {
     required this.endDate,
     required this.address,
     required this.link,
-    required this.activities,
-    required this.friends,
     required this.commentCount,
     required this.createdAt,
     required this.updatedAt,
@@ -38,23 +32,30 @@ class TravelLogModel {
   factory TravelLogModel.fromJson(Map<String, dynamic> json) {
     return TravelLogModel(
       id: json['_id'] ?? '',
-      location:
-          json['location'] != null
-              ? LocationModel.fromJson(json['location'])
-              : LocationModel.empty(),
       createdBy: json['createdBy'] ?? '',
       title: json['title'] ?? '',
       description: json['description'] ?? '',
-      images: List<String>.from(json['images'] ?? []),
-      date: DateTime.parse(json['date']),
-      endDate: DateTime.parse(json['endDate']),
+      images:
+          json['images'] != null
+              ? (json['images'] as List).map((e) => e.toString()).toList()
+              : [],
+      date:
+          json['date'] != null ? DateTime.parse(json['date']) : DateTime.now(),
+      endDate:
+          json['endDate'] != null
+              ? DateTime.parse(json['endDate'])
+              : DateTime.now(),
       address: json['address'] ?? '',
       link: json['link'] ?? '',
-      activities: json['activities'] ?? [],
-      friends: json['friends'] ?? [],
       commentCount: json['commentCount'] ?? 0,
-      createdAt: DateTime.parse(json['createdAt']),
-      updatedAt: DateTime.parse(json['updatedAt']),
+      createdAt:
+          json['createdAt'] != null
+              ? DateTime.parse(json['createdAt'])
+              : DateTime.now(),
+      updatedAt:
+          json['updatedAt'] != null
+              ? DateTime.parse(json['updatedAt'])
+              : DateTime.now(),
       v: json['__v'] ?? 0,
     );
   }
@@ -62,7 +63,6 @@ class TravelLogModel {
   Map<String, dynamic> toJson() {
     return {
       '_id': id,
-      'location': location.toJson(),
       'createdBy': createdBy,
       'title': title,
       'description': description,
@@ -71,8 +71,6 @@ class TravelLogModel {
       'endDate': endDate.toIso8601String(),
       'address': address,
       'link': link,
-      'activities': activities,
-      'friends': friends,
       'commentCount': commentCount,
       'createdAt': createdAt.toIso8601String(),
       'updatedAt': updatedAt.toIso8601String(),

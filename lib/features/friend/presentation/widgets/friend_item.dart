@@ -5,14 +5,15 @@ import 'package:new_untitled/component/button/common_button.dart';
 import 'package:new_untitled/component/image/common_image.dart';
 import 'package:new_untitled/component/text/common_text.dart';
 import 'package:new_untitled/features/friend/data/friend_model.dart';
+import 'package:new_untitled/features/friend/presentation/controller/friend_controller.dart';
 import 'package:new_untitled/utils/constants/app_colors.dart';
 import 'package:new_untitled/utils/constants/app_icons.dart';
-import 'package:new_untitled/utils/constants/app_images.dart';
 import 'package:new_untitled/utils/extensions/extension.dart';
 
 import '../../../../config/route/app_routes.dart';
 
-Widget friendItem({required FriendModel friend}) {
+Widget friendItem(FriendController controller, int index) {
+  final friend = controller.friends[index];
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 12),
     child: Row(
@@ -20,7 +21,7 @@ Widget friendItem({required FriendModel friend}) {
         CommonImage(imageSrc: friend.image, borderRadius: 50, size: 48),
         CommonText(text: friend.name, left: 16),
         Spacer(),
-        if (friend.status == "pending")
+        if (!friend.isPlanAdd)
           CommonButton(
             titleText: "Add to Plans",
             buttonHeight: 32,
@@ -30,14 +31,10 @@ Widget friendItem({required FriendModel friend}) {
             titleColor: AppColors.white,
             buttonColor: AppColors.black,
             borderColor: AppColors.transparent,
-            onTap:
-                () => Get.toNamed(
-                  AppRoutes.friend,
-                  parameters: {"value": "remove"},
-                ),
+            onTap: () => controller.addToPlan(friend.id, index),
           ),
 
-        if (friend.status == "remove")
+        if (friend.isPlanAdd)
           InkWell(
             onTap: () => Get.toNamed(AppRoutes.friend),
             child: Container(

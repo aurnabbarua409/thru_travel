@@ -36,7 +36,10 @@ AppBar plansAppBar(BuildContext context, PlansController controller) {
       ),
       IconButton(
         onPressed:
-            () => Get.toNamed(AppRoutes.friend, parameters: {"value": "add"}),
+            () => Get.toNamed(
+              AppRoutes.friend,
+              parameters: {'planId': controller.plans.value!.id},
+            ),
         icon: CommonImage(imageSrc: AppIcons.groups),
       ),
     ],
