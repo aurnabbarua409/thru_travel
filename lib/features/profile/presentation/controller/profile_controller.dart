@@ -69,11 +69,13 @@ class ProfileController extends GetxController {
   //         'data': jsonEncode({"type": "profile"}),
   //       },
   //       imagePath: image,
+  //       imageName: "images",
   //     );
   //   } catch (e) {
   //     errorLog("error in upload image: $e");
   //   }
   // }
+
   void editProfilePicture() async {
     if (image == null) return;
     final url = "${ApiEndPoint.baseUrl}${ApiEndPoint.uploadImage}";

@@ -32,8 +32,9 @@ class AddExperienceScreen extends StatelessWidget {
                     decoration: BoxDecoration(color: Color(0xffCFE9C3)),
                     child:
                         CommonText(
-                          text: "Trip Name:  “${controller.tripName}",
+                          text: "Trip Name: “${controller.tripName}”",
                           color: AppColors.black,
+                          maxLines: 2,
                         ).center,
                   ),
                   Container(

@@ -45,7 +45,7 @@ class _PlansScreenState extends State<PlansScreen> {
                           child:
                               CommonText(
                                 text:
-                                    "Trip Name:  “${controller.plans.value!.title}”",
+                                    "Trip Name: “${controller.plans.value!.title}”",
                                 color: AppColors.black,
                                 maxLines: 2,
                               ).center,

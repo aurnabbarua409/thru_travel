@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:new_untitled/utils/constants/app_colors.dart';
 
-
 class PopupController {
   static final PopupController _instance = PopupController._internal();
 
@@ -125,7 +124,6 @@ class _PopupMenu extends StatelessWidget {
                     style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w400,
-
                       fontSize: 14,
                     ),
                   ),
