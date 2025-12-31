@@ -27,7 +27,7 @@ extension TimeFormater on DateTime {
   String get date2 => DateFormat('dd/MM/yyyy').format(this);
   String get date3 => DateFormat('MMMM dd, yyyy').format(this);
   String get monthDay => DateFormat('MMMM dd').format(this);
-
+  String get dateTime => "$date3 at $time";
   String get dayName => DateFormat('E').format(this);
 
   String get MonthName => DateFormat.MMMM().format(this);

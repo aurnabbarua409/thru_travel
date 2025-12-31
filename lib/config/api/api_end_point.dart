@@ -27,4 +27,5 @@ class ApiEndPoint {
   static const newPlanActivity = "/activity/create-with-activity";
   static const addNewPlan = "/activity/add-to-plan";
   static const requestPlanAdd = "/request/plan-add";
+  static const cancelRequestPlan = "/plan/remove-friend";
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:new_untitled/component/bottom_nav_bar/common_bottom_bar.dart';
 import 'package:new_untitled/component/image/common_image.dart';
 import 'package:new_untitled/component/text/common_text.dart';
 import 'package:new_untitled/features/happening/data/happening_model.dart';
@@ -83,9 +84,14 @@ class _PlanItemState extends State<PlanItem> {
                   Row(
                     spacing: 6,
                     children: List.generate(5, (index) {
-                      return CommonImage(
-                        imageSrc: AppImages.profileIcon,
-                        size: 20,
+                      return ClipOval(
+                        child: CommonImage(
+                          imageSrc:
+                              CommonBottomNavBar.profileImage.value ??
+                              AppImages.profile,
+                          size: 20,
+                          fill: BoxFit.cover,
+                        ),
                       );
                     }),
                   ),
@@ -97,6 +103,8 @@ class _PlanItemState extends State<PlanItem> {
                   ),
                   CommonText(
                     text: widget.plan.title,
+                    maxLines: 2,
+                    textAlign: TextAlign.left,
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: AppColors.black,
@@ -108,11 +116,13 @@ class _PlanItemState extends State<PlanItem> {
                     fontSize: 14,
                     bottom: 2,
                     fontWeight: FontWeight.w400,
+                    maxLines: 2,
+                    textAlign: TextAlign.left,
                     color: AppColors.black.withOpacity(0.5),
                   ),
 
                   CommonText(
-                    text: widget.plan.date.toString(),
+                    text: widget.plan.date.dateTime,
                     fontSize: 14,
                     bottom: 2,
                     fontWeight: FontWeight.w400,
@@ -130,7 +140,7 @@ class _PlanItemState extends State<PlanItem> {
                     text: widget.plan.description,
                     fontSize: 14,
                     bottom: 10,
-                    maxLines: 1,
+                    maxLines: 10,
                     textAlign: TextAlign.start,
                     fontWeight: FontWeight.w400,
                     color: AppColors.black.withOpacity(0.5),

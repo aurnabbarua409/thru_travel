@@ -54,4 +54,23 @@ class FriendController extends GetxController {
       errorLog("error in requesting plan: $e");
     }
   }
+
+  void cancelPlanRequest(String userId, int index) async {
+    final body = {"planId": planId, "userId": userId};
+    try {
+      final response = await ApiService.post(
+        ApiEndPoint.cancelRequestPlan,
+        body: body,
+      );
+      if (response.isSuccess) {
+        friends[index].isPlanRequestSent = false;
+        update();
+        Utils.snackBar(response.message);
+      } else {
+        Utils.snackBar(response.message);
+      }
+    } catch (e) {
+      errorLog("error in cancel request: $e");
+    }
+  }
 }

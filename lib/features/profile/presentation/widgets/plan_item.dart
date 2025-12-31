@@ -22,12 +22,13 @@ Widget planItem(PlanModel plan) {
           borderRadius: 10,
         ),
         SizedBox(
-          width: 150,
+          width: 150.w,
           child: CommonText(
             text: plan.title,
             color: AppColors.black.withOpacity(0.5),
             fontSize: 12,
             top: 12,
+            textAlign: TextAlign.left,
             fontWeight: FontWeight.w400,
           ),
         ),

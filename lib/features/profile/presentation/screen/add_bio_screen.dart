@@ -5,7 +5,6 @@ import 'package:new_untitled/utils/extensions/extension.dart';
 import '../../../../component/bottom_nav_bar/common_bottom_bar.dart';
 import '../../../../component/image/common_image.dart';
 import '../../../../component/text/common_text.dart';
-import '../../../../utils/constants/app_images.dart';
 import '../controller/profile_controller.dart';
 
 class AddBioScreen extends StatelessWidget {

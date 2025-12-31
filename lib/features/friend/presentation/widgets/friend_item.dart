@@ -45,7 +45,7 @@ Widget friendItem(FriendController controller, int index) {
           //   ),
           if (!friend.isInPlan && friend.isPlanRequestSent)
             InkWell(
-              onTap: () => controller.addToPlan(friend.id, index),
+              onTap: () => controller.cancelPlanRequest(friend.id, index),
               child: Container(
                 width: 90.w,
                 height: 32.h,

@@ -15,7 +15,6 @@ Widget personalInfo(ProfileController controller) {
       CommonImage(
         imageSrc: controller.user.value?.profile ?? AppImages.image1,
         height: 200,
-
         fill: BoxFit.cover,
       ),
 
