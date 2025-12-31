@@ -21,12 +21,15 @@ Widget planItem(PlanModel plan) {
           fill: BoxFit.fill,
           borderRadius: 10,
         ),
-        CommonText(
-          text: plan.title,
-          color: AppColors.black.withOpacity(0.5),
-          fontSize: 12,
-          top: 12,
-          fontWeight: FontWeight.w400,
+        SizedBox(
+          width: 150,
+          child: CommonText(
+            text: plan.title,
+            color: AppColors.black.withOpacity(0.5),
+            fontSize: 12,
+            top: 12,
+            fontWeight: FontWeight.w400,
+          ),
         ),
         CommonText(
           text:
