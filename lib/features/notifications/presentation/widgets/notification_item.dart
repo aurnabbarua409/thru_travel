@@ -87,7 +87,7 @@ class NotificationItem extends StatelessWidget {
                   text: message,
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
-                  maxLines: 1,
+                  maxLines: 3,
                   color: AppColors.black,
                   textAlign: TextAlign.start,
                 ),
