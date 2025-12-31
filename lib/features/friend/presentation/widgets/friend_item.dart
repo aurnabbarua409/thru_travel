@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:new_untitled/component/button/common_button.dart';
 import 'package:new_untitled/component/image/common_image.dart';
 import 'package:new_untitled/component/text/common_text.dart';
-import 'package:new_untitled/features/friend/data/friend_model.dart';
 import 'package:new_untitled/features/friend/presentation/controller/friend_controller.dart';
 import 'package:new_untitled/utils/constants/app_colors.dart';
 import 'package:new_untitled/utils/constants/app_icons.dart';
 import 'package:new_untitled/utils/extensions/extension.dart';
-
-import '../../../../config/route/app_routes.dart';
 
 Widget friendItem(FriendController controller, int index) {
   final friend = controller.friends[index];
@@ -35,22 +31,21 @@ Widget friendItem(FriendController controller, int index) {
               onTap: () => controller.addToPlan(friend.id, index),
             ),
 
+          // if (!friend.isInPlan && friend.isPlanRequestSent)
+          //   CommonButton(
+          //     titleText: "Requested",
+          //     buttonHeight: 32,
+          //     buttonWidth: 120,
+          //     titleSize: 14,
+          //     titleWeight: FontWeight.w500,
+          //     titleColor: AppColors.white,
+          //     buttonColor: AppColors.black,
+          //     borderColor: AppColors.transparent,
+          //     onTap: () => controller.addToPlan(friend.id, index),
+          //   ),
           if (!friend.isInPlan && friend.isPlanRequestSent)
-            CommonButton(
-              titleText: "Requested",
-              buttonHeight: 32,
-              buttonWidth: 120,
-              titleSize: 14,
-              titleWeight: FontWeight.w500,
-              titleColor: AppColors.white,
-              buttonColor: AppColors.black,
-              borderColor: AppColors.transparent,
-              onTap: () => controller.addToPlan(friend.id, index),
-            ),
-
-          if (friend.isInPlan && !friend.isPlanRequestSent)
             InkWell(
-              onTap: () => Get.toNamed(AppRoutes.friend),
+              onTap: () => controller.addToPlan(friend.id, index),
               child: Container(
                 width: 90.w,
                 height: 32.h,

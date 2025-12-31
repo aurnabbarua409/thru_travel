@@ -44,7 +44,7 @@ class FriendController extends GetxController {
         body: body,
       );
       if (response.isSuccess) {
-        friends[index].isInPlan = true;
+        friends[index].isPlanRequestSent = true;
         update();
         Utils.snackBar(response.message);
       } else {
