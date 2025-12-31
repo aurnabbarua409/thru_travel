@@ -7,7 +7,7 @@ class NotificationModel {
   final UserModel from;
   final String title;
   final String body;
-  final bool isRead;
+  bool isRead;
   final DateTime createdAt;
   final DateTime updatedAt;
   final int v;

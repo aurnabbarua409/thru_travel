@@ -137,11 +137,19 @@ class _NotificationScreenState extends State<NotificationScreen>
                                       controller.notifications[index];
 
                                   ///  Notification card item
-                                  return NotificationItem(
-                                    image: item.from.profile,
-                                    user: item.from.name,
-                                    time: item.createdAt,
-                                    message: item.body,
+                                  return GestureDetector(
+                                    onTap:
+                                        () => controller.markAsRead(
+                                          item.id,
+                                          index,
+                                        ),
+                                    child: NotificationItem(
+                                      image: item.from.profile,
+                                      user: item.from.name,
+                                      time: item.createdAt,
+                                      message: item.body,
+                                      isRead: item.isRead,
+                                    ),
                                   );
                                 },
                               ),
@@ -182,6 +190,7 @@ class _NotificationScreenState extends State<NotificationScreen>
                                     user: item.name,
                                     time: item.createdAt,
                                     message: "No message found",
+                                    isRead: false,
                                   );
                                 },
                               ),

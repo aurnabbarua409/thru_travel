@@ -108,6 +108,16 @@ class NotificationsController extends GetxController {
     }
   }
 
+  void markAsRead(String id, int index) async {
+    try {
+      await ApiService.get("${ApiEndPoint.notifications}/$id");
+      notifications[index].isRead = true;
+      update();
+    } catch (e) {
+      errorLog("error in markasRead: $e");
+    }
+  }
+
   /// Notification Controller Instance create here
   static NotificationsController get instance =>
       Get.put(NotificationsController());

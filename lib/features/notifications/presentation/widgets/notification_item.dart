@@ -14,12 +14,14 @@ class NotificationItem extends StatelessWidget {
     required this.user,
     required this.time,
     required this.message,
+    required this.isRead,
   });
 
   final String image;
   final String user;
   final DateTime time;
   final String message;
+  final bool isRead;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,14 +33,15 @@ class NotificationItem extends StatelessWidget {
       // ),
       child: Row(
         children: [
-          Container(
-            width: 10,
-            height: 10,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: AppColors.red,
+          if (!isRead)
+            Container(
+              width: 10,
+              height: 10,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppColors.red,
+              ),
             ),
-          ),
           10.width,
           ClipOval(
             child: CommonImage(
