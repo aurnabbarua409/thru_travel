@@ -61,18 +61,21 @@ class NotificationItem extends StatelessWidget {
               Row(
                 children: [
                   /// Notification Title here
-                  CommonText(
-                    text: user,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    textAlign: TextAlign.start,
-                    maxLines: 1,
+                  SizedBox(
+                    width: isNotification ? 120.w : 150.w,
+                    child: CommonText(
+                      text: user,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      textAlign: TextAlign.start,
+                      maxLines: 1,
+                    ),
                   ),
                   5.width,
 
                   /// Notification Time here
                   SizedBox(
-                    width: isNotification ? 70.w : 100.w,
+                    width: 80.w,
                     child: CommonText(
                       text: time.timeAgo,
                       fontSize: 14,
