@@ -14,6 +14,7 @@ class CommonBottomNavBar extends StatelessWidget {
   final int currentIndex;
 
   const CommonBottomNavBar({required this.currentIndex, super.key});
+
   static RxnString profileImage = RxnString(LocalStorage.myImage);
   @override
   Widget build(BuildContext context) {

@@ -72,7 +72,7 @@ class NotificationItem extends StatelessWidget {
 
                   /// Notification Time here
                   SizedBox(
-                    width: isNotification ? 80.w : 100.w,
+                    width: isNotification ? 70.w : 100.w,
                     child: CommonText(
                       text: time.timeAgo,
                       fontSize: 14,

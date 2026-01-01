@@ -19,47 +19,45 @@ class HappeningScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: AppColors.white,
-      child: SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Color(0xffCFE9C3),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color(0xffCFE9C3),
 
-            automaticallyImplyLeading: false,
-            centerTitle: true,
-            title: CommonText(
-              text: AppString.happening,
-              fontWeight: FontWeight.w700,
-              fontSize: 14,
-              color: AppColors.black.withOpacity(0.7),
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          title: CommonText(
+            text: AppString.happening,
+            fontWeight: FontWeight.w700,
+            fontSize: 14,
+            color: AppColors.black.withOpacity(0.7),
+          ),
+          actions: [
+            IconButton(
+              onPressed: () => Get.toNamed(AppRoutes.travelLog),
+              icon: CommonImage(imageSrc: AppIcons.briefcase),
             ),
-            actions: [
-              IconButton(
-                onPressed: () => Get.toNamed(AppRoutes.travelLog),
-                icon: CommonImage(imageSrc: AppIcons.briefcase),
-              ),
-            ],
-          ),
-          body: GetBuilder<HappeningController>(
-            builder: (controller) {
-              if (controller.happening.isEmpty) {
-                return Center(child: Text("Nothing is happening now"));
-              }
-              return ListView.builder(
-                padding: EdgeInsets.all(16.sp),
-                physics: const BouncingScrollPhysics(),
-                itemCount: controller.happening.length,
-                itemBuilder: (context, index) {
-                  return PostItem(
-                    happening: controller.happening[index],
-                    onSendComment:
-                        (id, content) => controller.sendComment(id, content),
-                  );
-                },
-              );
-            },
-          ),
-          bottomNavigationBar: const CommonBottomNavBar(currentIndex: 3),
+          ],
         ),
+        body: GetBuilder<HappeningController>(
+          builder: (controller) {
+            if (controller.happening.isEmpty) {
+              return Center(child: Text("Nothing is happening now"));
+            }
+            return ListView.builder(
+              padding: EdgeInsets.all(16.sp),
+              physics: const BouncingScrollPhysics(),
+              itemCount: controller.happening.length,
+              itemBuilder: (context, index) {
+                return PostItem(
+                  happening: controller.happening[index],
+                  onSendComment:
+                      (id, content) => controller.sendComment(id, content),
+                );
+              },
+            );
+          },
+        ),
+        bottomNavigationBar: const CommonBottomNavBar(currentIndex: 3),
       ),
     );
   }
