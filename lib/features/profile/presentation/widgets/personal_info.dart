@@ -33,10 +33,7 @@ Widget personalInfo(ProfileController controller) {
             ),
             Divider(),
             CommonText(
-              text:
-                  controller.user.value?.bio != null
-                      ? "“${controller.user.value!.bio}”"
-                      : "",
+              text: "“${controller.user.value!.bio}”",
               fontSize: 11,
               fontWeight: FontWeight.w400,
               left: 6,

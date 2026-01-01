@@ -123,10 +123,10 @@ class MessageController extends GetxController {
       messages.insert(
         0,
         ChatMessageModel(
-          isNotice: data['messageType'] == "notice" ? true : false,
+          isNotice: data['isRead'],
           time: time,
           text: data['message'],
-          image: data['sender']['image'],
+          image: data['sender']['profile'],
           isMe: false,
         ),
       );

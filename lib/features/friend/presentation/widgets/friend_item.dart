@@ -14,7 +14,13 @@ Widget friendItem(FriendController controller, int index) {
     padding: const EdgeInsets.symmetric(vertical: 12),
     child: Row(
       children: [
-        CommonImage(imageSrc: friend.image, borderRadius: 50, size: 48),
+        ClipOval(
+          child: CommonImage(
+            imageSrc: friend.image,
+            size: 48,
+            fill: BoxFit.cover,
+          ),
+        ),
         CommonText(text: friend.name, left: 16),
         Spacer(),
         if (controller.planId != "0") ...[

@@ -37,9 +37,9 @@ class ProfileModel {
       email: json['email'] ?? '',
       phone: json['phone'] ?? '',
       status: json['status'] ?? '',
-      bio: json['bio'] ?? '',
+      bio: json['bio'] ?? 'N/A',
       totalDays: json['totalDays'] ?? "",
-      address: json['address'] ?? "",
+      address: json['address'] ?? "N/A",
       verified: json['verified'] ?? false,
       role: json['role'] ?? '',
       location:

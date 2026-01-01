@@ -87,7 +87,7 @@ class NotificationItem extends StatelessWidget {
 
               /// Notification Message here
               SizedBox(
-                width: 220.w,
+                width: 200.w,
                 child: CommonText(
                   text: message,
                   fontSize: 14,
