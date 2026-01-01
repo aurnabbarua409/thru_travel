@@ -41,7 +41,7 @@ class ChatController extends GetxController {
 
   /// Chat data Loading function
   Future<void> getChatRepo() async {
-    return;
+    // return;
     if (page == 1) {
       status = Status.loading;
       update();

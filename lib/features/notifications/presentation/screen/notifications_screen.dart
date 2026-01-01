@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_untitled/component/image/common_image.dart';
 import 'package:new_untitled/features/friend/data/friend_model.dart';
+import 'package:new_untitled/features/message/presentation/controller/message_controller.dart';
 import 'package:new_untitled/utils/constants/app_icons.dart';
 import 'package:new_untitled/utils/constants/app_string.dart';
 import '../../../../component/bottom_nav_bar/common_bottom_bar.dart';
@@ -149,6 +150,7 @@ class _NotificationScreenState extends State<NotificationScreen>
                                       time: item.createdAt,
                                       message: item.body,
                                       isRead: item.isRead,
+                                      isNotification: true,
                                     ),
                                   );
                                 },
@@ -185,12 +187,24 @@ class _NotificationScreenState extends State<NotificationScreen>
                                   FriendModel item = controller.friends[index];
 
                                   ///  Notification card item
-                                  return NotificationItem(
-                                    image: item.image,
-                                    user: item.name,
-                                    time: item.createdAt,
-                                    message: "No message found",
-                                    isRead: false,
+                                  return GestureDetector(
+                                    onTap:
+                                        () => Get.toNamed(
+                                          AppRoutes.message,
+                                          parameters: {
+                                            'chatId': item.friendshipId,
+                                            'name': item.name,
+                                            'image': item.image,
+                                          },
+                                        ),
+                                    child: NotificationItem(
+                                      image: item.image,
+                                      user: item.name,
+                                      time: item.createdAt,
+                                      message: item.lastMessage,
+                                      isRead: item.isLastMessageRead,
+                                      isNotification: false,
+                                    ),
                                   );
                                 },
                               ),

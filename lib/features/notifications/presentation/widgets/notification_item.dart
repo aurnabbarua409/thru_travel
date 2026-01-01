@@ -15,6 +15,7 @@ class NotificationItem extends StatelessWidget {
     required this.time,
     required this.message,
     required this.isRead,
+    required this.isNotification,
   });
 
   final String image;
@@ -22,6 +23,7 @@ class NotificationItem extends StatelessWidget {
   final DateTime time;
   final String message;
   final bool isRead;
+  final bool isNotification;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -70,7 +72,7 @@ class NotificationItem extends StatelessWidget {
 
                   /// Notification Time here
                   SizedBox(
-                    width: 80,
+                    width: isNotification ? 80.w : 100.w,
                     child: CommonText(
                       text: time.timeAgo,
                       fontSize: 14,
@@ -85,7 +87,7 @@ class NotificationItem extends StatelessWidget {
 
               /// Notification Message here
               SizedBox(
-                width: 220,
+                width: 220.w,
                 child: CommonText(
                   text: message,
                   fontSize: 14,
@@ -104,13 +106,14 @@ class NotificationItem extends StatelessWidget {
           //     buttonColor: AppColors.black,
           //   ),
           // ),
-          CommonImage(
-            imageSrc: AppImages.image1,
-            width: 60,
-            height: 60,
-            fill: BoxFit.cover,
-            borderRadius: 10,
-          ),
+          if (isNotification)
+            CommonImage(
+              imageSrc: AppImages.image1,
+              width: 60,
+              height: 60,
+              fill: BoxFit.cover,
+              borderRadius: 10,
+            ),
         ],
       ),
     );

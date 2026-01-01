@@ -118,10 +118,12 @@ class ProfileController extends GetxController {
       if (response.isSuccess) {
         final data = response.data;
         user.value = ProfileModel.fromJson(data['data']);
+        LocalStorage.userId = user.value!.id;
         LocalStorage.myImage = user.value!.profile;
         CommonBottomNavBar.profileImage.value = LocalStorage.myImage;
         update();
         LocalStorage.setString(LocalStorageKeys.myImage, LocalStorage.myImage!);
+        LocalStorage.setString(LocalStorageKeys.userId, LocalStorage.userId);
       } else {
         Utils.snackBar(response.message);
       }

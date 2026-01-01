@@ -1,77 +1,73 @@
-class Sender {
-  final String id;
-  final String fullName;
-  final String image;
-
-  Sender({
-    required this.id,
-    required this.fullName,
-    required this.image,
-  });
-
-  factory Sender.fromJson(Map<String, dynamic> json) {
-    return Sender(
-      id: json['_id']  ?? '',
-      fullName: json['fullName']  ?? '',
-      image: json['image']  ?? '',
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      '_id': id,
-      'fullName': fullName,
-      'image': image,
-    };
-  }
-}
-
 class MessageModel {
   final String id;
-  final String chat;
+  final String friend;
   final String message;
-  final String type;
-  final Sender sender;
+  final bool isRead;
+  final UserModel sender;
+  final UserModel receiver;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final int version;
 
   MessageModel({
     required this.id,
-    required this.chat,
+    required this.friend,
     required this.message,
-    required this.type,
+    required this.isRead,
     required this.sender,
+    required this.receiver,
     required this.createdAt,
     required this.updatedAt,
-    required this.version,
   });
 
   factory MessageModel.fromJson(Map<String, dynamic> json) {
     return MessageModel(
       id: json['_id'] ?? '',
-      chat: json['chat'] ?? '',
+      friend: json['friend'] ?? '',
       message: json['message'] ?? '',
-      type: json['type'] as String? ?? 'general',
-      sender: Sender.fromJson(json['sender'] ?? {}),
+      isRead: json['isRead'] ?? false,
+      sender: UserModel.fromJson(json['sender'] ?? {}),
+      receiver: UserModel.fromJson(json['receiver'] ?? {}),
       createdAt:
-          DateTime.parse(json['createdAt'] ?? DateTime.now().toIso8601String()),
+          json['createdAt'] != null
+              ? DateTime.parse(json['createdAt'])
+              : DateTime.now(),
       updatedAt:
-          DateTime.parse(json['updatedAt'] ?? DateTime.now().toIso8601String()),
-      version: json['__v'] ?? 0,
+          json['updatedAt'] != null
+              ? DateTime.parse(json['updatedAt'])
+              : DateTime.now(),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       '_id': id,
-      'chat': chat,
+      'friend': friend,
       'message': message,
-      'type': type,
+      'isRead': isRead,
       'sender': sender.toJson(),
+      'receiver': receiver.toJson(),
       'createdAt': createdAt.toIso8601String(),
       'updatedAt': updatedAt.toIso8601String(),
-      '__v': version,
     };
+  }
+}
+
+class UserModel {
+  final String id;
+  final String name;
+  final String profile;
+
+  UserModel({required this.id, required this.name, required this.profile});
+
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      id: json['_id'] ?? '',
+      name: json['name'] ?? '',
+      profile: json['profile'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'_id': id, 'name': name, 'profile': profile};
   }
 }

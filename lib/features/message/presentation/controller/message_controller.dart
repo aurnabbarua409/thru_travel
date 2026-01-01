@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:new_untitled/utils/log/app_log.dart';
 import '../../data/model/chat_message_model.dart';
 import '../../data/model/message_model.dart';
 
@@ -37,7 +38,7 @@ class MessageController extends GetxController {
   MessageModel messageModel = MessageModel.fromJson({});
 
   Future<void> getMessageRepo() async {
-    return;
+    // return;
     if (page == 1) {
       messages.clear();
       status = Status.loading;
@@ -45,22 +46,24 @@ class MessageController extends GetxController {
     }
 
     var response = await ApiService.get(
-      "${ApiEndPoint.messages}?chatId=$chatId&page=$page&limit=15",
+      "${ApiEndPoint.messages}/$chatId?page=$page&limit=15",
     );
 
     if (response.statusCode == 200) {
-      var data = response.data['data']['attributes']['messages'];
+      var data = response.data['data'];
 
       for (var messageData in data) {
         messageModel = MessageModel.fromJson(messageData);
-
+        appLog(
+          "my userId: ${LocalStorage.userId} and sendId: ${messageModel.sender.id}",
+        );
         messages.add(
           ChatMessageModel(
             time: messageModel.createdAt.toLocal(),
             text: messageModel.message,
-            image: messageModel.sender.image,
-            isNotice: messageModel.type == "notice" ? true : false,
-            isMe: LocalStorage.userId == messageModel.sender.id ? true : false,
+            image: messageModel.sender.profile,
+            isNotice: messageModel.isRead,
+            isMe: LocalStorage.userId == messageModel.sender.id,
           ),
         );
       }
@@ -97,29 +100,26 @@ class MessageController extends GetxController {
     isMessage = false;
     update();
 
-    var body = {
-      "chat": chatId,
-      "message": messageController.text,
-      "sender": LocalStorage.userId,
-    };
+    var body = {"message": messageController.text};
+    await ApiService.post("${ApiEndPoint.messages}/$chatId", body: body);
 
     messageController.clear();
 
-    SocketServices.emitWithAck("add-new-message", body, (data) {
-      if (kDebugMode) {
-        print(
-          "===============================================================> Received acknowledgment: $data",
-        );
-      }
-    });
+    // SocketServices.emitWithAck("", body, (data) {
+    //   if (kDebugMode) {
+    //     print(
+    //       "===============================================================> Received acknowledgment: $data",
+    //     );
+    //   }
+    // });
   }
 
   listenMessage(String chatId) async {
-    SocketServices.on('new-message::$chatId', (data) {
+    SocketServices.on('message::$chatId', (data) {
       status = Status.loading;
       update();
 
-      var time = data['createdAt'].toLocal();
+      var time = DateTime.parse(data['createdAt']).toLocal();
       messages.insert(
         0,
         ChatMessageModel(
