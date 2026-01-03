@@ -54,9 +54,7 @@ class MessageController extends GetxController {
 
       for (var messageData in data) {
         messageModel = MessageModel.fromJson(messageData);
-        appLog(
-          "my userId: ${LocalStorage.userId} and sendId: ${messageModel.sender.id}",
-        );
+
         messages.add(
           ChatMessageModel(
             time: messageModel.createdAt.toLocal(),

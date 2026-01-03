@@ -46,17 +46,11 @@ class HomeScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         var item = controller.categories[index];
                         return InkWell(
-                          onTap: () {
-                            Get.toNamed(AppRoutes.category);
-                          },
-                          child: InkWell(
-                            onTap:
-                                () => Get.toNamed(AppRoutes.experienceDetails),
-                            child: CommonImage(
-                              imageSrc: AppImages.image7,
-                              height: 380.w,
-                              borderRadius: 8,
-                            ),
+                          onTap: () => Get.toNamed(AppRoutes.experienceDetails),
+                          child: CommonImage(
+                            imageSrc: AppImages.image7,
+                            height: 380.w,
+                            borderRadius: 8,
                           ),
                         );
                       },
@@ -75,7 +69,10 @@ class HomeScreen extends StatelessWidget {
                         var item = controller.categories[index];
                         return InkWell(
                           onTap: () {
-                            Get.toNamed(AppRoutes.category);
+                            Get.toNamed(
+                              AppRoutes.category,
+                              arguments: "Music", //item.title,
+                            );
                           },
                           child: Padding(
                             padding: const EdgeInsets.only(right: 8),
@@ -83,15 +80,15 @@ class HomeScreen extends StatelessWidget {
                               children: [
                                 6.height,
                                 CommonImage(
-                                  imageSrc: AppImages.image7,
+                                  imageSrc: item.image,
                                   height: 173,
                                   width: (Get.width - 30) / 3,
                                   borderRadius: 8,
-                                  fill: BoxFit.fitHeight,
+                                  fill: BoxFit.cover,
                                 ),
 
                                 CommonText(
-                                  text: item,
+                                  text: item.title,
                                   fontWeight: FontWeight.w400,
                                   bottom: 10,
                                   color: AppColors.black,

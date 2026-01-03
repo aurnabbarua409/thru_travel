@@ -2,46 +2,45 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:new_untitled/component/button/common_button.dart';
 import 'package:new_untitled/component/image/common_image.dart';
+import 'package:new_untitled/features/trip/data/event_model.dart';
 import 'package:new_untitled/utils/constants/app_colors.dart';
-import 'package:new_untitled/utils/constants/app_icons.dart';
-import 'package:new_untitled/utils/constants/app_images.dart';
 import 'package:new_untitled/utils/extensions/extension.dart';
 
 import '../../../../component/text/common_text.dart';
 import '../../../../config/route/app_routes.dart';
-import '../../../../utils/constants/app_string.dart';
 
-Widget plansItem() {
+Widget plansItem(EventModel event) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      CommonImage(imageSrc: AppImages.image3, height: 150, width: Get.width),
+      CommonImage(
+        imageSrc: event.thumbnail,
+        height: 150,
+        width: Get.width,
+        fill: BoxFit.cover,
+      ),
       CommonText(
-        text: "Lake Serene Trail",
+        text: event.title,
         fontSize: 14,
         fontWeight: FontWeight.w500,
         color: AppColors.black,
         top: 12,
       ),
-      Row(
-        children: [
-          CommonImage(imageSrc: AppIcons.star),
-          CommonText(
-            text: "4.5 (500 ${AppString.reviews})",
-            fontWeight: FontWeight.w400,
-            color: AppColors.black.withOpacity(0.5),
-          ),
-          CommonImage(imageSrc: AppIcons.map),
-          CommonText(
-            text: "48.6  ${AppString.miles}",
-            color: AppColors.black.withOpacity(0.5),
-            fontWeight: FontWeight.w400,
-          ),
-        ],
+      CommonText(
+        text: "Venue: ${event.venue.name}",
+        fontWeight: FontWeight.w400,
+        fontStyle: FontStyle.italic,
+        color: AppColors.black.withOpacity(0.5),
+      ),
+      CommonText(
+        text: event.date.when,
+        fontWeight: FontWeight.w400,
+
+        color: AppColors.black.withOpacity(0.5),
       ),
       8.height,
       CommonButton(
-        titleText: AppString.addToPlan,
+        titleText: "See More",
         buttonHeight: 28,
         buttonWidth: 142,
         buttonColor: Color(0xff2F4630),
