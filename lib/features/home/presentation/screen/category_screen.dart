@@ -27,20 +27,24 @@ class _CategoryScreenState extends State<CategoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Obx(
-        () =>
-            _controller.events.isEmpty
-                ? Center(child: CommonText(text: "No item found"))
-                : ListView.builder(
-                  itemCount: 10,
-                  physics: const BouncingScrollPhysics(),
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  itemBuilder: (context, index) {
-                    final item = _controller.events[index];
-                    return plansItem(item);
-                  },
-                ),
-      ),
+      body: Obx(() {
+        if (_controller.eventLoading.value) {
+          return Center(child: CircularProgressIndicator.adaptive());
+        }
+        if (_controller.events.isEmpty) {
+          return Center(child: CommonText(text: "No item found"));
+        }
+
+        return ListView.builder(
+          itemCount: 10,
+          physics: const BouncingScrollPhysics(),
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          itemBuilder: (context, index) {
+            final item = _controller.events[index];
+            return plansItem(item);
+          },
+        );
+      }),
       bottomNavigationBar: CommonBottomNavBar(currentIndex: 9),
     );
   }

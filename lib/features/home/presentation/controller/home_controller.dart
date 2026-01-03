@@ -26,6 +26,7 @@ class HomeController extends GetxController {
   final userName = "".obs;
   final categories = <CategoryModel>[].obs;
   final events = <EventModel>[].obs;
+  final eventLoading = false.obs;
 
   void setUserName(String name) {
     userName.value = name;
@@ -33,6 +34,8 @@ class HomeController extends GetxController {
   }
 
   void fetchEventByType(String eventType) async {
+    eventLoading.value = true;
+
     try {
       final url = "${ApiEndPoint.event}?eventType=$eventType";
       final response = await ApiService.get(url);
@@ -44,6 +47,8 @@ class HomeController extends GetxController {
       }
     } catch (e) {
       errorLog(e, source: "fetch event by type");
+    } finally {
+      eventLoading.value = false;
     }
   }
 
