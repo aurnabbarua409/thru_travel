@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide FormData, MultipartFile;
 import 'package:new_untitled/component/bottom_nav_bar/common_bottom_bar.dart';
+import 'package:new_untitled/features/home/presentation/controller/home_controller.dart';
 import 'package:new_untitled/features/profile/data/plan_model.dart';
 import 'package:new_untitled/features/profile/data/profile_model.dart';
 import 'package:new_untitled/services/storage/storage_keys.dart';
@@ -120,7 +121,9 @@ class ProfileController extends GetxController {
         user.value = ProfileModel.fromJson(data['data']);
         LocalStorage.userId = user.value!.id;
         LocalStorage.myImage = user.value!.profile;
+        LocalStorage.myName = user.value!.name;
         CommonBottomNavBar.profileImage.value = LocalStorage.myImage;
+        Get.find<HomeController>().setUserName(user.value!.name);
         update();
         LocalStorage.setString(LocalStorageKeys.myImage, LocalStorage.myImage!);
         LocalStorage.setString(LocalStorageKeys.userId, LocalStorage.userId);
@@ -200,7 +203,6 @@ class ProfileController extends GetxController {
       if (response.isSuccess) {
         final data = response.data;
         final temp = data['data'] as List;
-        appLog("all plans: $temp");
         if (temp.isNotEmpty) {
           plans.value = temp.map((e) => PlanModel.fromJson(e)).toList();
           update();

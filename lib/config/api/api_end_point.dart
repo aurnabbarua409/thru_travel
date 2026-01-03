@@ -1,7 +1,7 @@
 class ApiEndPoint {
-  static const baseUrl = "http://10.10.7.50:5005/api/v1";
-  static const imageUrl = "http://10.10.7.50:5005";
-  static const socketUrl = "http://10.10.7.50:5005";
+  static const baseUrl = "https://asad5002.binarybards.online/api/v1";
+  static const imageUrl = "https://asad5002.binarybards.online";
+  static const socketUrl = "https://asad5002.binarybards.online";
 
   static const signUp = "/auth/signup";
   static const verifyEmail = "/auth/verify-account/";

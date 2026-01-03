@@ -17,97 +17,98 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xffF4F2EC),
-      appBar: homeAppbar(),
-      body: GetBuilder<HomeController>(
-        builder: (controller) {
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                CommonText(
-                  text: "Your Daily Picks",
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.black.withOpacity(0.5),
-                  left: 24,
-                  top: 20,
-                  bottom: 13,
-                ).start,
+    return GetBuilder<HomeController>(
+      builder:
+          (controller) => Scaffold(
+            backgroundColor: Color(0xffF4F2EC),
+            appBar: homeAppbar(controller),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  CommonText(
+                    text: "Your Daily Picks",
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.black.withOpacity(0.5),
+                    left: 24,
+                    top: 20,
+                    bottom: 13,
+                  ).start,
 
-                Container(
-                  height: 381.h,
-                  decoration: BoxDecoration(color: Color(0xffCFE9C3)),
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: ListView.builder(
-                    itemCount: controller.categories.length,
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      var item = controller.categories[index];
-                      return InkWell(
-                        onTap: () {
-                          Get.toNamed(AppRoutes.category);
-                        },
-                        child: InkWell(
-                          onTap: () => Get.toNamed(AppRoutes.experienceDetails),
-                          child: CommonImage(
-                            imageSrc: AppImages.image7,
-                            height: 380.w,
-                            borderRadius: 8,
+                  Container(
+                    height: 381.h,
+                    decoration: BoxDecoration(color: Color(0xffCFE9C3)),
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: ListView.builder(
+                      itemCount: controller.categories.length,
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        var item = controller.categories[index];
+                        return InkWell(
+                          onTap: () {
+                            Get.toNamed(AppRoutes.category);
+                          },
+                          child: InkWell(
+                            onTap:
+                                () => Get.toNamed(AppRoutes.experienceDetails),
+                            child: CommonImage(
+                              imageSrc: AppImages.image7,
+                              height: 380.w,
+                              borderRadius: 8,
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    //     ),
+                        );
+                      },
+                      //     ),
+                    ),
                   ),
-                ),
-                Container(
-                  height: 210.h,
-                  decoration: BoxDecoration(color: Color(0xffCFE9C3)),
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: ListView.builder(
-                    itemCount: controller.categories.length,
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      var item = controller.categories[index];
-                      return InkWell(
-                        onTap: () {
-                          Get.toNamed(AppRoutes.category);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: Column(
-                            children: [
-                              6.height,
-                              CommonImage(
-                                imageSrc: AppImages.image7,
-                                height: 173,
-                                width: (Get.width - 30) / 3,
-                                borderRadius: 8,
-                                fill: BoxFit.fitHeight,
-                              ),
+                  Container(
+                    height: 210.h,
+                    decoration: BoxDecoration(color: Color(0xffCFE9C3)),
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: ListView.builder(
+                      itemCount: controller.categories.length,
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        var item = controller.categories[index];
+                        return InkWell(
+                          onTap: () {
+                            Get.toNamed(AppRoutes.category);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 8),
+                            child: Column(
+                              children: [
+                                6.height,
+                                CommonImage(
+                                  imageSrc: AppImages.image7,
+                                  height: 173,
+                                  width: (Get.width - 30) / 3,
+                                  borderRadius: 8,
+                                  fill: BoxFit.fitHeight,
+                                ),
 
-                              CommonText(
-                                text: item,
-                                fontWeight: FontWeight.w400,
-                                bottom: 10,
-                                color: AppColors.black,
-                              ),
-                            ],
+                                CommonText(
+                                  text: item,
+                                  fontWeight: FontWeight.w400,
+                                  bottom: 10,
+                                  color: AppColors.black,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          );
-        },
-      ),
-      bottomNavigationBar: CommonBottomNavBar(currentIndex: 2),
+
+            bottomNavigationBar: CommonBottomNavBar(currentIndex: 2),
+          ),
     );
   }
 }
