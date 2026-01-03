@@ -14,24 +14,27 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(
       builder:
-          (controller) => Scaffold(
-            /// App Bar Section Starts here
-            appBar: profileAppbar(context, controller),
+          (controller) => RefreshIndicator.adaptive(
+            onRefresh: () => controller.onRefresh(),
+            child: Scaffold(
+              /// App Bar Section Starts here
+              appBar: profileAppbar(context, controller),
 
-            /// Body Section Starts here
-            body: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  personalInfo(controller),
-                  30.height,
-                  plans(controller.plans, controller.planLoading.value),
-                ],
+              /// Body Section Starts here
+              body: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    personalInfo(controller),
+                    30.height,
+                    plans(controller.plans, controller.planLoading.value),
+                  ],
+                ),
               ),
-            ),
 
-            /// Bottom Navigation Bar Section Starts here
-            bottomNavigationBar: const CommonBottomNavBar(currentIndex: 4),
+              /// Bottom Navigation Bar Section Starts here
+              bottomNavigationBar: const CommonBottomNavBar(currentIndex: 4),
+            ),
           ),
     );
   }

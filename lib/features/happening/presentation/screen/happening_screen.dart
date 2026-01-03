@@ -43,6 +43,29 @@ class HappeningScreen extends StatelessWidget {
             if (controller.isLoading.value) {
               return Center(child: CircularProgressIndicator.adaptive());
             }
+            // return RefreshIndicator.adaptive(
+            //   child:
+            //       controller.happening.isEmpty
+            //           ? ListView(
+            //             children: [
+            //               Center(child: Text("Nothing is happening now")),
+            //             ],
+            //           )
+            //           : ListView.builder(
+            //             padding: EdgeInsets.all(16.sp),
+            //             physics: const BouncingScrollPhysics(),
+            //             itemCount: controller.happening.length,
+            //             itemBuilder: (context, index) {
+            //               return PostItem(
+            //                 happening: controller.happening[index],
+            //                 onSendComment:
+            //                     (id, content) =>
+            //                         controller.sendComment(id, content),
+            //               );
+            //             },
+            //           ),
+            //   onRefresh: () => controller.onRefresh(),
+            // );
             if (controller.happening.isEmpty) {
               return Center(child: Text("Nothing is happening now"));
             }

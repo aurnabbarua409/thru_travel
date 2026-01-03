@@ -33,9 +33,9 @@ Widget tripDetails(BuildContext context, EventModel event) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CommonImage(
-            imageSrc: AppImages.image3,
+            imageSrc: event.thumbnail,
             height: 150,
-            width: Get.width,
+            fill: BoxFit.cover,
           ),
           CommonText(
             text: event.title,
@@ -101,7 +101,7 @@ Widget tripDetails(BuildContext context, EventModel event) {
               );
             },
           ),
-          20.height,
+          MediaQuery.of(context).padding.bottom.height,
         ],
       ),
     ),

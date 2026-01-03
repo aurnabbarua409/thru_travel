@@ -15,6 +15,11 @@ class HappeningController extends GetxController {
     fetchHappening();
   }
 
+  Future onRefresh() async {
+    happening.clear();
+    fetchHappening();
+  }
+
   void fetchHappening() async {
     isLoading.value = true;
     update();

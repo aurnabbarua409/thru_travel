@@ -40,11 +40,11 @@ class HomeScreen extends StatelessWidget {
                     decoration: BoxDecoration(color: Color(0xffCFE9C3)),
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: ListView.builder(
-                      itemCount: controller.categories.length,
+                      itemCount: 5,
                       physics: BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        var item = controller.categories[index];
+                        // var item = controller.categories[index];
                         return InkWell(
                           onTap: () => Get.toNamed(AppRoutes.experienceDetails),
                           child: CommonImage(

@@ -55,6 +55,12 @@ class ProfileController extends GetxController {
     fetchPlan();
   }
 
+  onRefresh() async {
+    plans.clear();
+    fetchProfile();
+    fetchPlan();
+  }
+
   /// select image function here
   getProfileImage() async {
     image = await OtherHelper.openGalleryForProfile();
