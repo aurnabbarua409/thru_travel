@@ -110,27 +110,29 @@ class _MessageScreenState extends State<MessageScreen> {
                   ),
 
           /// bottom Navigation Bar Section starts here
-          bottomNavigationBar: AnimatedPadding(
-            padding: MediaQuery.of(context).viewInsets,
-            duration: const Duration(milliseconds: 100),
-            curve: Curves.decelerate,
-            child: Padding(
-              padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 24.h),
+          bottomNavigationBar: SafeArea(
+            child: AnimatedPadding(
+              padding: MediaQuery.of(context).viewInsets,
+              duration: const Duration(milliseconds: 100),
+              curve: Curves.decelerate,
+              child: Padding(
+                padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 24.h),
 
-              /// Send message text filed here
-              child: CommonTextField(
-                hintText: AppString.messageHere,
-                suffixIcon: GestureDetector(
-                  onTap: controller.addNewMessage,
-                  child: Padding(
-                    padding: EdgeInsets.all(16.sp),
-                    child: const Icon(Icons.send),
+                /// Send message text filed here
+                child: CommonTextField(
+                  hintText: AppString.messageHere,
+                  suffixIcon: GestureDetector(
+                    onTap: controller.addNewMessage,
+                    child: Padding(
+                      padding: EdgeInsets.all(16.sp),
+                      child: const Icon(Icons.send),
+                    ),
                   ),
+                  borderColor: Colors.white,
+                  borderRadius: 8,
+                  controller: controller.messageController,
+                  onSubmitted: (p0) => controller.addNewMessage(),
                 ),
-                borderColor: Colors.white,
-                borderRadius: 8,
-                controller: controller.messageController,
-                onSubmitted: (p0) => controller.addNewMessage(),
               ),
             ),
           ),

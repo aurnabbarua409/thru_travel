@@ -71,35 +71,37 @@ class SignUpController extends GetxController {
   }
 
   signUpUser() async {
-    if (!signUpFormKey.currentState!.validate()) return;
-    // Get.toNamed(AppRoutes.verifyUser);
-    // return;
-    isLoading = true;
-    update();
-    Map<String, String> body = {
-      "email": emailController.text.trim(),
-      "password": passwordController.text.trim(),
-      "name":
-          "${firstNameController.text.trim()} ${lastNameController.text.trim()}",
-      "phone": numberController.text.trim(),
-    };
-
-    try {
-      var response = await ApiService.post(ApiEndPoint.signUp, body: body);
-
-      if (response.statusCode == 200) {
-        // var data = response.data;
-        // signUpToken = data['data']['signUpToken'];
-        Utils.snackBar(response.message);
-        Get.toNamed(AppRoutes.verifyUser);
-      } else {
-        Utils.snackBar(response.message);
-      }
-    } catch (e) {
-      errorLog("error in signup: $e");
-    } finally {
-      isLoading = false;
+    if (signUpFormKey.currentState != null &&
+        signUpFormKey.currentState!.validate()) {
+      // Get.toNamed(AppRoutes.verifyUser);
+      // return;
+      isLoading = true;
       update();
+      Map<String, String> body = {
+        "email": emailController.text.trim(),
+        "password": passwordController.text.trim(),
+        "name":
+            "${firstNameController.text.trim()} ${lastNameController.text.trim()}",
+        "phone": numberController.text.trim(),
+      };
+
+      try {
+        var response = await ApiService.post(ApiEndPoint.signUp, body: body);
+
+        if (response.statusCode == 200) {
+          // var data = response.data;
+          // signUpToken = data['data']['signUpToken'];
+          Utils.snackBar(response.message);
+          Get.toNamed(AppRoutes.verifyUser);
+        } else {
+          Utils.snackBar(response.message);
+        }
+      } catch (e) {
+        errorLog("error in signup: $e");
+      } finally {
+        isLoading = false;
+        update();
+      }
     }
   }
 

@@ -64,13 +64,15 @@ class AddExperienceScreen extends StatelessWidget {
               ),
             ),
 
-            bottomNavigationBar: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 16.w,
-              ).copyWith(bottom: 28.h),
-              child: CommonButton(
-                titleText: AppString.thru,
-                onTap: controller.addExperience,
+            bottomNavigationBar: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 16.w,
+                ).copyWith(bottom: 18.h),
+                child: CommonButton(
+                  titleText: AppString.thru,
+                  onTap: controller.addExperience,
+                ),
               ),
             ),
           ),

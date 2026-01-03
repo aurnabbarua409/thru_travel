@@ -40,6 +40,9 @@ class HappeningScreen extends StatelessWidget {
         ),
         body: GetBuilder<HappeningController>(
           builder: (controller) {
+            if (controller.isLoading.value) {
+              return Center(child: CircularProgressIndicator.adaptive());
+            }
             if (controller.happening.isEmpty) {
               return Center(child: Text("Nothing is happening now"));
             }

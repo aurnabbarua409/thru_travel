@@ -11,6 +11,7 @@ class TripController extends GetxController {
   static TripController instance = Get.find<TripController>();
 
   bool isDetails = false;
+  final isLoading = false.obs;
 
   List<String> filters = [
     "Food and Coffee",
@@ -66,6 +67,8 @@ class TripController extends GetxController {
   }
 
   void fetchEvents() async {
+    isLoading.value = true;
+    update();
     try {
       final response = await ApiService.get(ApiEndPoint.event);
       if (response.isSuccess) {
@@ -80,6 +83,9 @@ class TripController extends GetxController {
       }
     } catch (e) {
       errorLog("error in fetching event: $e");
+    } finally {
+      isLoading.value = false;
+      update();
     }
   }
 

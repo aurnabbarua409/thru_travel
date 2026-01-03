@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:new_untitled/services/socket/socket_service.dart';
 import 'package:new_untitled/utils/extensions/extension.dart';
 
 import 'app.dart';
@@ -17,7 +18,7 @@ Future<void> main() async {
 init() async {
   DependencyInjection dI = DependencyInjection();
   dI.dependencies();
-//   SocketServices.connectToSocket();
+  SocketServices.connectToSocket();
 
   await Future.wait([
     LocalStorage.getAllPrefData(),

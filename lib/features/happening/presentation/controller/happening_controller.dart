@@ -7,7 +7,7 @@ import 'package:new_untitled/utils/log/error_log.dart';
 
 class HappeningController extends GetxController {
   final happening = <HappeningModel>[].obs;
-
+  final isLoading = false.obs;
   @override
   void onInit() {
     // TODO: implement onInit
@@ -16,6 +16,8 @@ class HappeningController extends GetxController {
   }
 
   void fetchHappening() async {
+    isLoading.value = true;
+    update();
     try {
       final response = await ApiService.get(ApiEndPoint.happeningNow);
       if (response.isSuccess) {
@@ -29,6 +31,9 @@ class HappeningController extends GetxController {
       }
     } catch (e) {
       errorLog("error in fetching happening: $e");
+    } finally {
+      isLoading.value = false;
+      update();
     }
   }
 

@@ -93,9 +93,11 @@ class _PlansScreenState extends State<PlansScreen> {
                         ),
                       ],
                     ),
-            bottomNavigationBar: Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 34),
-              child: CommonButton(titleText: AppString.seeYouSoon),
+            bottomNavigationBar: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+                child: CommonButton(titleText: AppString.seeYouSoon),
+              ),
             ),
           ),
     );

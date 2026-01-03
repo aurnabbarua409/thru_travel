@@ -28,10 +28,13 @@ class TripScreen extends StatelessWidget {
                 top: 280,
                 left: 0,
                 right: 0,
+                bottom: 0,
                 child: Container(
                   height: Get.height,
                   width: Get.width,
-                  padding: EdgeInsets.all(20),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20.w,
+                  ).copyWith(top: 20.h),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
@@ -40,7 +43,9 @@ class TripScreen extends StatelessWidget {
                     ),
                   ),
                   child:
-                      controller.events.isEmpty
+                      controller.isLoading.value
+                          ? Center(child: CircularProgressIndicator.adaptive())
+                          : controller.events.isEmpty
                           ? CommonText(text: "No event found")
                           : ListView.builder(
                             physics: const BouncingScrollPhysics(),
