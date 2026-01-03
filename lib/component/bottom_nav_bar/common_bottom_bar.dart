@@ -33,30 +33,32 @@ class CommonBottomNavBar extends StatelessWidget {
         ),
       ),
     ];
-    return SingleChildScrollView(
-      physics: const NeverScrollableScrollPhysics(),
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        alignment: Alignment.center,
-        padding: EdgeInsets.all(12.sp),
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20.r),
-            topRight: Radius.circular(20.r),
+    return SafeArea(
+      child: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          alignment: Alignment.center,
+          padding: EdgeInsets.all(12.sp),
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.r),
+              topRight: Radius.circular(20.r),
+            ),
           ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(_list.length, (index) {
-            return GestureDetector(
-              onTap: () => onTap(index),
-              child: Container(
-                margin: EdgeInsetsDirectional.all(12.sp),
-                child: Column(children: [_list[index]]),
-              ),
-            );
-          }),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: List.generate(_list.length, (index) {
+              return GestureDetector(
+                onTap: () => onTap(index),
+                child: Container(
+                  margin: EdgeInsetsDirectional.all(12.sp),
+                  child: Column(children: [_list[index]]),
+                ),
+              );
+            }),
+          ),
         ),
       ),
     );
