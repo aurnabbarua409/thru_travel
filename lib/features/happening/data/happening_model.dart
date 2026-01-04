@@ -46,7 +46,10 @@ class HappeningModel {
               : CreatedByModel.empty(),
       title: json['title'] ?? '',
       description: json['description'] ?? '',
-      images: (json['images'] as List).map((e) => e.toString()).toList(),
+      images:
+          json['images'] != null
+              ? (json['images'] as List).map((e) => e.toString()).toList()
+              : [],
       date:
           DateTime.tryParse(json['date'] ?? '') ??
           DateTime.fromMillisecondsSinceEpoch(0),

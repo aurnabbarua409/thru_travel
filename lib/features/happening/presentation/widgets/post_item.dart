@@ -74,7 +74,10 @@ class _PostItemState extends State<PostItem> {
             child: Column(
               children: [
                 CommonImage(
-                  imageSrc: widget.happening.images.first,
+                  imageSrc:
+                      widget.happening.images.isNotEmpty
+                          ? widget.happening.images.first
+                          : AppImages.image1,
                   height: 300,
                   width: double.infinity,
                   borderRadius: 8.0,
